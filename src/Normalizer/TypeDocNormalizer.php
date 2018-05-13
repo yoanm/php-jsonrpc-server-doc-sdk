@@ -92,29 +92,12 @@ class TypeDocNormalizer
     {
         $paramDocProperties = [];
         if ($doc instanceof ObjectDoc) {
-            $siblingDocList = [];
-            foreach ($doc->getSiblingList() as $sibling) {
-                $siblingDoc = $this->normalize($sibling);
-                // Use name if :
-                // - parent is object
-                // - parent is array and name is an integer
-                if ($doc instanceof ObjectDoc
-                    || (
-                        $doc instanceof ArrayDoc
-                        && is_int($sibling->getName())
-                    )
-                ) {
-                    $siblingDocList[$sibling->getName()] = $siblingDoc;
-                } else {
-                    $siblingDocList[] = $siblingDoc;
-                }
-            }
+            $siblingDocList = $this->getSiblingDocList($doc);
             if (count($siblingDocList)) {
                 $paramDocProperties['siblings'] = $siblingDocList;
             }
             $paramDocProperties['allow_extra'] = $doc->isAllowExtraSibling();
             $paramDocProperties['allow_missing'] = $doc->isAllowMissingSibling();
-
         }
 
         return $paramDocProperties;
@@ -157,5 +140,33 @@ class TypeDocNormalizer
         }
 
         return $paramDocEnum;
+    }
+
+    /**
+     * @param ObjectDoc $doc
+     *
+     * @return TypeDoc[]
+     */
+    protected function getSiblingDocList(ObjectDoc $doc) : array
+    {
+        $siblingDocList = [];
+        foreach ($doc->getSiblingList() as $sibling) {
+            $siblingDoc = $this->normalize($sibling);
+            // Use name if :
+            // - parent is object
+            // - parent is array and name is an integer
+            if ($doc instanceof ObjectDoc
+                || (
+                    $doc instanceof ArrayDoc
+                    && is_int($sibling->getName())
+                )
+            ) {
+                $siblingDocList[$sibling->getName()] = $siblingDoc;
+            } else {
+                $siblingDocList[] = $siblingDoc;
+            }
+        }
+
+        return $siblingDocList;
     }
 }
