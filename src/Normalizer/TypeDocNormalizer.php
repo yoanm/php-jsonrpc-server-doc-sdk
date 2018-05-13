@@ -18,13 +18,12 @@ class TypeDocNormalizer
      *
      * @return array
      */
-    public function normalize(TypeDoc $doc)
+    public function normalize(TypeDoc $doc) : array
     {
-        $paramDocEnum = $paramDocType = [];
-        $paramDocFormat = $paramDocX = [];
-        $paramDocProperties = $paramDocRequired = $paramDocAdditionalProperties = [];
-        $paramDocMin = $paramDocMax = $paramDocItems = [];
+        $paramDocEnum = $paramDocType = $paramDocFormat = $paramDocX = $paramDocProperties = [];
+        $paramDocAdditionalProperties = $paramDocMin = $paramDocMax = $paramDocItems = [];
         $paramDocDescription = $paramDocDefault = $paramDocExample = [];
+
         $paramDocType['type'] = $this->normalizeSchemaType($doc);
         if (count($doc->getAllowedValueList())) {
             foreach ($doc->getAllowedValueList() as $value) {
@@ -35,10 +34,10 @@ class TypeDocNormalizer
             if (null !== $doc->getFormat()) {
                 $paramDocFormat['format'] = $doc->getFormat();
             }
-            if ($doc->getMinLength()) {
+            if (null !== $doc->getMinLength()) {
                 $paramDocMax['minLength'] = $doc->getMinLength();
             }
-            if ($doc->getMaxLength()) {
+            if (null !== $doc->getMaxLength()) {
                 $paramDocMax['maxLength'] = $doc->getMaxLength();
             }
         } elseif ($doc instanceof CollectionDoc) {
@@ -71,23 +70,22 @@ class TypeDocNormalizer
                 }
             }
 
-
             if ($doc instanceof ArrayDoc || $doc instanceof ObjectDoc) {
-                if ($doc->getMinItem()) {
+                if (null !== $doc->getMinItem()) {
                     $paramDocMin['minItems'] = $doc->getMinItem();
                 }
-                if ($doc->getMaxItem()) {
+                if (null !== $doc->getMaxItem()) {
                     $paramDocMax['maxItems'] = $doc->getMaxItem();
                 }
             }
         } elseif ($doc instanceof NumberDoc) {
-            if ($doc->getMin()) {
+            if (null !== $doc->getMin()) {
                 $paramDocMin['minimum'] = $doc->getMin();
                 $paramDocMin['inclusiveMinimum'] = $doc->isInclusiveMin();
             }
-            if ($doc->getMax()) {
+            if (null !== $doc->getMax()) {
                 $paramDocMax['maximum'] = $doc->getMax();
-                $paramDocMax['exclusiveMaximum'] = $doc->isInclusiveMax();
+                $paramDocMax['inclusiveMaximum'] = $doc->isInclusiveMax();
             }
         }
 
@@ -104,8 +102,8 @@ class TypeDocNormalizer
         return $paramDocDescription
             + $paramDocType
             + $paramDocFormat
-            + ['nullable' => ($doc->isNullable() === true)]
-            + $paramDocRequired
+            + ['nullable' => $doc->isNullable()]
+            + ['required' => $doc->isRequired()]
             + $paramDocDefault
             + $paramDocExample
             + $paramDocEnum

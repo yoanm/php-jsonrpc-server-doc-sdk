@@ -39,7 +39,6 @@ class HttpServerDocNormalizer
         if (count($doc->getSchemeList())) {
             $httpDoc['schemes'] = $doc->getSchemeList();
         }
-
         if (count($httpDoc)) {
             $normalizedDoc['http'] = $httpDoc;
         }

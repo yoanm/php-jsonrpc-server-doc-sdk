@@ -17,14 +17,14 @@ class NumberDoc extends ScalarDoc
     private $inclusiveMax = true;
 
     /**
-     * @param null|int|float $min
+     * @param int|float $min
      *
      * @return NumberDoc
      */
     public function setMin($min) : NumberDoc
     {
-        if (null !== $min && !is_int($min) && !is_float($min)) {
-            throw new \InvalidArgumentException('min must be either null, a float or an integer.');
+        if (null === $min || (!is_string($min) && !is_int($min))) {
+            throw new \InvalidArgumentException('min must be either a float or an integer.');
         }
 
         $this->min = $min;
@@ -33,14 +33,14 @@ class NumberDoc extends ScalarDoc
     }
 
     /**
-     * @param null|int|float $max
+     * @param int|float $max
      *
      * @return NumberDoc
      */
     public function setMax($max) : NumberDoc
     {
-        if (null !== $max && !is_int($max) && !is_float($max)) {
-            throw new \InvalidArgumentException('max must be either null, a float or an integer.');
+        if (null === $max || (!is_string($max) && !is_int($max))) {
+            throw new \InvalidArgumentException('max must be either a float or an integer.');
         }
 
         $this->max = $max;

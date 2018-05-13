@@ -24,14 +24,13 @@ class MethodDocNormalizer
      *
      * @return array
      */
-    public function normalize(MethodDoc $doc)
+    public function normalize(MethodDoc $doc) : array
     {
         $docDescription = $docTags = $paramsSchema = $responseSchema = [];
 
         if (null !== $doc->getDescription()) {
             $docDescription['description'] = $doc->getDescription();
         }
-
         if (count($doc->getTags())) {
             $docTags['tags'] = $doc->getTags();
         }

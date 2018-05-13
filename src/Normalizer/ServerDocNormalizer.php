@@ -28,7 +28,7 @@ class ServerDocNormalizer
      *
      * @return array
      */
-    public function normalize(ServerDoc $doc)
+    public function normalize(ServerDoc $doc) : array
     {
         $rawInfo = $methodsDoc = $tagsDoc = [];
         if (null !== $doc->getName()) {
@@ -39,12 +39,10 @@ class ServerDocNormalizer
         }
 
         $methodDocList = array_map([$this->methodDocNormalizer, 'normalize'], $doc->getMethodList());
-        $tagDocList = array_map([$this->tagDocNormalizer, 'normalize'], $doc->getTagList());
-
-
         if (count($methodDocList)) {
             $methodsDoc['methods'] = $methodDocList;
         }
+        $tagDocList = array_map([$this->tagDocNormalizer, 'normalize'], $doc->getTagList());
         if (count($tagDocList)) {
             $tagsDoc['tags'] = $tagDocList;
         }

@@ -25,14 +25,14 @@ class TypeDoc
     private $allowedValueList = [];
 
     /**
-     * @param null|string|integer $name
+     * @param string|int $name
      *
      * @return TypeDoc
      */
     public function setName($name) : TypeDoc
     {
-        if (null !== $name && !is_string($name) && !is_int($name)) {
-            throw new \InvalidArgumentException('name must be either null, an integer or a string.');
+        if (null === $name || (!is_string($name) && !is_int($name))) {
+            throw new \InvalidArgumentException('name must be either an integer or a string.');
         }
 
         $this->name = $name;

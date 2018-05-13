@@ -13,7 +13,7 @@ class TagDocNormalizer
      *
      * @return array
      */
-    public function normalize(TagDoc $doc)
+    public function normalize(TagDoc $doc) : array
     {
         $tagDoc = ['name' => $doc->getName()];
 
