@@ -1,0 +1,182 @@
+<?php
+namespace Yoanm\JsonRpcServerDoc\Model\Type;
+
+/**
+ * Class TypeDoc
+ */
+class TypeDoc
+{
+    /*** Documentation ***/
+    /** @var null|string|integer */
+    private $name = null;
+    /** @var null|string */
+    private $description = null;
+    /** @var null|mixed */
+    private $default = null;
+    /** @var null|mixed */
+    private $example = null;
+
+    /*** Validation ***/
+    /** @var bool */
+    private $required = false;
+    /** @var bool */
+    private $nullable = true;
+    /** @var array */
+    private $allowedValueList = [];
+
+    /**
+     * @param null|string|integer $name
+     *
+     * @return TypeDoc
+     */
+    public function setName($name) : TypeDoc
+    {
+        if (null !== $name && !is_string($name) && !is_int($name)) {
+            throw new \InvalidArgumentException('name must be either null, an integer or a string.');
+        }
+
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @param string $description
+     *
+     * @return TypeDoc
+     */
+    public function setDescription(string $description) : TypeDoc
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @param bool $required
+     *
+     * @return TypeDoc
+     */
+    public function setRequired(bool $required) : TypeDoc
+    {
+        $this->required = $required;
+
+        return $this;
+    }
+
+    /**
+     * @param bool $nullable
+     *
+     * @return TypeDoc
+     */
+    public function setNullable(bool $nullable) : TypeDoc
+    {
+        $this->nullable = $nullable;
+
+        return $this;
+    }
+
+    /**
+     * @param mixed|null $default
+     *
+     * @return TypeDoc
+     */
+    public function setDefault($default) : TypeDoc
+    {
+        $this->default = $default;
+
+        return $this;
+    }
+
+    /**
+     * @param mixed|null $example
+     *
+     * @return TypeDoc
+     */
+    public function setExample($example) : TypeDoc
+    {
+        $this->example = $example;
+
+        return $this;
+    }
+
+    /**
+     * @param array $allowedValueList
+     *
+     * @return TypeDoc
+     */
+    public function addAllowedValue($allowedValue) : TypeDoc
+    {
+        $this->allowedValueList[] = $allowedValue;
+
+        return $this;
+    }
+
+    /**
+     * @param array $allowedValueList
+     *
+     * @return TypeDoc
+     */
+    public function setAllowedValueList(array $allowedValueList) : TypeDoc
+    {
+        $this->allowedValueList = $allowedValueList;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null|string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isRequired() : bool
+    {
+        return $this->required;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isNullable()
+    {
+        return $this->nullable;
+    }
+
+    /**
+     * @return mixed|null
+     */
+    public function getDefault()
+    {
+        return $this->default;
+    }
+
+    /**
+     * @return mixed|null
+     */
+    public function getExample()
+    {
+        return $this->example;
+    }
+
+    /**
+     * @return array
+     */
+    public function getAllowedValueList()
+    {
+        return $this->allowedValueList;
+    }
+}
