@@ -23,7 +23,7 @@ class NumberDoc extends ScalarDoc
      */
     public function setMin($min) : NumberDoc
     {
-        if (null === $min || (!is_string($min) && !is_int($min))) {
+        if (null === $min || (!is_float($min) && !is_int($min))) {
             throw new \InvalidArgumentException('min must be either a float or an integer.');
         }
 
@@ -39,7 +39,7 @@ class NumberDoc extends ScalarDoc
      */
     public function setMax($max) : NumberDoc
     {
-        if (null === $max || (!is_string($max) && !is_int($max))) {
+        if (null === $max || (!is_float($max) && !is_int($max))) {
             throw new \InvalidArgumentException('max must be either a float or an integer.');
         }
 
