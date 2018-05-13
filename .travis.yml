@@ -12,8 +12,6 @@ env:
     TEST_OUTPUT_STYLE: 'pretty'
     PHPCS_REPORT_STYLE: 'full'
     COMPOSER_OPTIONS: '--optimize-autoloader'
-  matrix:
-    - SDK_VERSION: '~2.0'
 
 sudo: false
 
@@ -25,7 +23,6 @@ before_install:
   - phpenv config-rm xdebug.ini
 
 install:
-  - composer require yoanm/jsonrpc-server-sdk:$SDK_VERSION
   - make build
 script:
   - make test-technical
