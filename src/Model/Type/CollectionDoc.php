@@ -14,9 +14,9 @@ class CollectionDoc extends TypeDoc
     /** @var null|int */
     private $maxItem = null;
     /** @var bool */
-    private $allowExtraSibling = true;
+    private $allowExtraSibling = false;
     /** @var bool */
-    private $allowMissingSibling = true;
+    private $allowMissingSibling = false;
 
     /**
      * @param TypeDoc $doc
@@ -31,51 +31,31 @@ class CollectionDoc extends TypeDoc
     }
 
     /**
-     * @param null|int $minItem
+     * @param int $minItem
      *
      * @return CollectionDoc
      */
-    public function setMinItem($minItem) : CollectionDoc
+    public function setMinItem(int $minItem) : CollectionDoc
     {
-        if (null !== $minItem && !is_int($minItem)) {
-            throw new \InvalidArgumentException('minItem must be either null or an integer.');
-        }
-
         $this->minItem = $minItem;
 
         return $this;
     }
 
     /**
-     * @param null|int $maxItem
+     * @param int $maxItem
      *
      * @return CollectionDoc
      */
-    public function setMaxItem($maxItem) : CollectionDoc
+    public function setMaxItem(int $maxItem) : CollectionDoc
     {
-        if (null !== $maxItem && !is_int($maxItem)) {
-            throw new \InvalidArgumentException('maxItem must be either null or an integer.');
-        }
-
         $this->maxItem = $maxItem;
 
         return $this;
     }
 
     /**
-     * @param TypeDoc[] $siblingList
-     *
-     * @return CollectionDoc
-     */
-    public function setSiblingList(array $siblingList) : CollectionDoc
-    {
-        $this->siblingList = $siblingList;
-
-        return $this;
-    }
-
-    /**
-     * @param boolean $allowExtraSibling
+     * @param bool $allowExtraSibling
      *
      * @return CollectionDoc
      */
@@ -87,7 +67,7 @@ class CollectionDoc extends TypeDoc
     }
 
     /**
-     * @param boolean $allowMissingSibling
+     * @param bool $allowMissingSibling
      *
      * @return CollectionDoc
      */

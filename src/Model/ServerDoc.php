@@ -56,18 +56,6 @@ class ServerDoc
     }
 
     /**
-     * @param MethodDoc[] $methodList
-     *
-     * @return ServerDoc
-     */
-    public function setMethodList(array $methodList) : ServerDoc
-    {
-        $this->methodList = $methodList;
-
-        return $this;
-    }
-
-    /**
      * @param TagDoc $tag
      *
      * @return ServerDoc
@@ -130,7 +118,7 @@ class ServerDoc
     /**
      * @return TagDoc[]
      */
-    public function getTagList()
+    public function getTagList() : array
     {
         return $this->tagList;
     }
@@ -138,7 +126,7 @@ class ServerDoc
     /**
      * @return ErrorDoc[]
      */
-    public function getServerErrorList()
+    public function getServerErrorList() : array
     {
         return $this->serverErrorList;
     }
@@ -146,7 +134,7 @@ class ServerDoc
     /**
      * @return ErrorDoc[]
      */
-    public function getMethodErrorList()
+    public function getMethodErrorList() : array
     {
         return $this->methodErrorList;
     }

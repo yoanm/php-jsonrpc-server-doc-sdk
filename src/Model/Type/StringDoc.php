@@ -7,57 +7,51 @@ namespace Yoanm\JsonRpcServerDoc\Model\Type;
 class StringDoc extends ScalarDoc
 {
     /*** Validation ***/
-    /** @var null|bool */
-    private $blankAllowed = null;
-    /** @var null|string */
+    /** @var string|null */
     private $format = null;
-    /** @var null|int|float */
+    /** @var int|null */
     private $minLength = null;
-    /** @var null|int|float */
+    /** @var int|null */
     private $maxLength = null;
 
     /**
-     * @param bool|null $blankAllowed
+     * @param string $format
+     *
+     * @return StringDoc
      */
-    public function setBlankAllowed($blankAllowed)
-    {
-        $this->blankAllowed = $blankAllowed;
-    }
-
-    /**
-     * @param null|string $format
-     */
-    public function setFormat($format)
+    public function setFormat(string $format) : StringDoc
     {
         $this->format = $format;
+
+        return $this;
     }
 
     /**
-     * @param null $minLength
+     * @param int $minLength
+     *
+     * @return StringDoc
      */
-    public function setMinLength($minLength)
+    public function setMinLength(int $minLength) : StringDoc
     {
         $this->minLength = $minLength;
+
+        return $this;
     }
 
     /**
-     * @param null|bool $maxLength
+     * @param int $maxLength
+     *
+     * @return StringDoc
      */
-    public function setMaxLength($maxLength)
+    public function setMaxLength(int $maxLength) : StringDoc
     {
         $this->maxLength = $maxLength;
+
+        return $this;
     }
 
     /**
-     * @return bool|null
-     */
-    public function isBlankAllowed()
-    {
-        return $this->blankAllowed;
-    }
-
-    /**
-     * @return null|string
+     * @return string|null
      */
     public function getFormat()
     {
@@ -65,7 +59,7 @@ class StringDoc extends ScalarDoc
     }
 
     /**
-     * @return null|bool
+     * @return int|null
      */
     public function getMinLength()
     {
@@ -73,7 +67,7 @@ class StringDoc extends ScalarDoc
     }
 
     /**
-     * @return null|bool
+     * @return int|null
      */
     public function getMaxLength()
     {

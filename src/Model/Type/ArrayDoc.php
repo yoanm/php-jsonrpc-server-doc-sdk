@@ -7,10 +7,11 @@ namespace Yoanm\JsonRpcServerDoc\Model\Type;
 class ArrayDoc extends CollectionDoc
 {
     /** @var TypeDoc|null */
-    private $itemValidation;
+    private $itemValidation = null;
 
     /**
      * @param TypeDoc $itemValidation
+     *
      * @return ArrayDoc
      */
     public function setItemValidation(TypeDoc $itemValidation) : ArrayDoc

@@ -101,25 +101,13 @@ class TypeDoc
     }
 
     /**
-     * @param array $allowedValueList
+     * @param mixed $allowedValue
      *
      * @return TypeDoc
      */
     public function addAllowedValue($allowedValue) : TypeDoc
     {
         $this->allowedValueList[] = $allowedValue;
-
-        return $this;
-    }
-
-    /**
-     * @param array $allowedValueList
-     *
-     * @return TypeDoc
-     */
-    public function setAllowedValueList(array $allowedValueList) : TypeDoc
-    {
-        $this->allowedValueList = $allowedValueList;
 
         return $this;
     }
@@ -151,7 +139,7 @@ class TypeDoc
     /**
      * @return bool
      */
-    public function isNullable()
+    public function isNullable() : bool
     {
         return $this->nullable;
     }
@@ -173,9 +161,9 @@ class TypeDoc
     }
 
     /**
-     * @return array
+     * @return mixed[]
      */
-    public function getAllowedValueList()
+    public function getAllowedValueList() : array
     {
         return $this->allowedValueList;
     }

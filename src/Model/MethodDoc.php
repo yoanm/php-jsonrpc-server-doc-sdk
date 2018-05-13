@@ -27,18 +27,10 @@ class MethodDoc
      * @param string      $methodName
      * @param string|null $identifier
      */
-    public function __construct(string $methodName, $identifier = null)
+    public function __construct(string $methodName, string $identifier = null)
     {
         $this->methodName = $methodName;
-        $this->identifier = $identifier
-            // If identifier not given => camelize methodName
-            ?? strtr(
-                ucwords(strtr(
-                    $methodName,
-                    ['_' => ' ', '/' => ' ', '.' => '_ ', '\\' => '_ ']
-                )),
-                [' ' => '']
-            )
+        $this->setIdentifier($identifier ?? $methodName)
         ;
     }
 
@@ -49,7 +41,14 @@ class MethodDoc
      */
     public function setIdentifier(string $identifier) : MethodDoc
     {
-        $this->identifier = $identifier;
+        // Sanitize Identifier => remove space and slashes
+        $this->identifier = strtr(
+            ucwords(strtr(
+                $identifier,
+                ['_' => ' ', '/' => ' ', '.' => '_ ', '\\' => '_ ']
+            )),
+            [' ' => '']
+        );
 
         return $this;
     }
@@ -141,7 +140,7 @@ class MethodDoc
     /**
      * @return string
      */
-    public function getIdentifier()
+    public function getIdentifier() : string
     {
         return $this->identifier;
     }
@@ -157,7 +156,7 @@ class MethodDoc
     /**
      * @return string[]
      */
-    public function getTags()
+    public function getTags() : array
     {
         return $this->tags;
     }
@@ -165,7 +164,7 @@ class MethodDoc
     /**
      * @return ErrorDoc[]
      */
-    public function getCustomErrorList()
+    public function getCustomErrorList() : array
     {
         return $this->customErrorList;
     }

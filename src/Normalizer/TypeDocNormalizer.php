@@ -41,9 +41,6 @@ class TypeDocNormalizer
             if ($doc->getMaxLength()) {
                 $paramDocMax['maxLength'] = $doc->getMaxLength();
             }
-            if (null !== $doc->isBlankAllowed()) {
-                $paramDocX['allow-blank'] = $doc->isBlankAllowed();
-            }
         } elseif ($doc instanceof CollectionDoc) {
             if ($doc instanceof ArrayDoc) {
                 if (null !== $doc->getItemValidation()) {

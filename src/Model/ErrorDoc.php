@@ -10,28 +10,28 @@ class ErrorDoc
 {
     /** @var string */
     private $title;
+    /** @var string */
+    private $identifier;
     /** @var int */
     private $code;
     /** @var string|null */
     private $message;
-    /** @var string */
-    private $identifier;
     /** @var null|TypeDoc */
     private $dataDoc = null;
 
     /**
-     * @param string            $title
-     * @param int               $code
-     * @param string|null       $message
+     * @param string       $title
+     * @param int          $code
+     * @param string|null  $message
      * @param TypeDoc|null $dataDoc
-     * @param string|null       $identifier
+     * @param string|null  $identifier
      */
     public function __construct(
         string $title,
         int $code,
         string $message = null,
         TypeDoc $dataDoc = null,
-        $identifier = null
+        string $identifier = null
     ) {
         $this->title = $title;
         $this->code = $code;
@@ -74,7 +74,7 @@ class ErrorDoc
     /**
      * @return string
      */
-    public function getTitle()
+    public function getTitle() : string
     {
         return $this->title;
     }
@@ -82,7 +82,7 @@ class ErrorDoc
     /**
      * @return int
      */
-    public function getCode()
+    public function getCode() : int
     {
         return $this->code;
     }
@@ -106,7 +106,7 @@ class ErrorDoc
     /**
      * @return string
      */
-    public function getIdentifier()
+    public function getIdentifier() : string
     {
         return $this->identifier;
     }

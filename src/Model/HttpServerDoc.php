@@ -6,12 +6,12 @@ namespace Yoanm\JsonRpcServerDoc\Model;
  */
 class HttpServerDoc extends ServerDoc
 {
-    /** @var string */
-    private $endpoint;
-    /** @var string */
-    private $host;
     /** @var string|null */
-    private $basePath;
+    private $endpoint = null;
+    /** @var string|null */
+    private $host = null;
+    /** @var string|null */
+    private $basePath = null;
     /** @var string[] */
     private $schemeList = [];
 
@@ -40,7 +40,7 @@ class HttpServerDoc extends ServerDoc
     }
 
     /**
-     * @param null|string $basePath
+     * @param string $basePath
      *
      * @return HttpServerDoc
      */
@@ -52,7 +52,7 @@ class HttpServerDoc extends ServerDoc
     }
 
     /**
-     * @param \string[] $schemeList
+     * @param string[] $schemeList
      *
      * @return HttpServerDoc
      */
@@ -90,7 +90,7 @@ class HttpServerDoc extends ServerDoc
     /**
      * @return string[]
      */
-    public function getSchemeList()
+    public function getSchemeList() : array
     {
         return $this->schemeList;
     }
