@@ -2,7 +2,6 @@
 namespace Yoanm\JsonRpcServerDoc\Normalizer;
 
 use Yoanm\JsonRpcServerDoc\Model\Type\ArrayDoc;
-use Yoanm\JsonRpcServerDoc\Model\Type\CollectionDoc;
 use Yoanm\JsonRpcServerDoc\Model\Type\NumberDoc;
 use Yoanm\JsonRpcServerDoc\Model\Type\ObjectDoc;
 use Yoanm\JsonRpcServerDoc\Model\Type\StringDoc;
@@ -20,99 +19,20 @@ class TypeDocNormalizer
      */
     public function normalize(TypeDoc $doc) : array
     {
-        $paramDocEnum = $paramDocType = $paramDocFormat = $paramDocX = $paramDocProperties = [];
-        $paramDocAdditionalProperties = $paramDocMin = $paramDocMax = $paramDocItems = [];
-        $paramDocDescription = $paramDocDefault = $paramDocExample = [];
-
-        $paramDocType['type'] = $this->normalizeSchemaType($doc);
-        if (count($doc->getAllowedValueList())) {
-            foreach ($doc->getAllowedValueList() as $value) {
-                $paramDocEnum['allowed_values'][] = $value;
-            }
-        }
-        if ($doc instanceof StringDoc) {
-            if (null !== $doc->getFormat()) {
-                $paramDocFormat['format'] = $doc->getFormat();
-            }
-            if (null !== $doc->getMinLength()) {
-                $paramDocMax['minLength'] = $doc->getMinLength();
-            }
-            if (null !== $doc->getMaxLength()) {
-                $paramDocMax['maxLength'] = $doc->getMaxLength();
-            }
-        } elseif ($doc instanceof CollectionDoc) {
-            if ($doc instanceof ArrayDoc) {
-                if (null !== $doc->getItemValidation()) {
-                    $paramDocItems['item_validation'] = $this->normalize($doc->getItemValidation());
-                }
-            } elseif ($doc instanceof ObjectDoc) {
-                $paramDocAdditionalProperties['allow_extra'] = $doc->isAllowExtraSibling();
-                $paramDocAdditionalProperties['allow_missing'] = $doc->isAllowMissingSibling();
-                if (count($doc->getSiblingList())) {
-                    $siblingDocList = [];
-                    foreach ($doc->getSiblingList() as $sibling) {
-                        $siblingDoc = $this->normalize($sibling);
-                        // Use name if :
-                        // - parent is object
-                        // - parent is array and name is an integer
-                        if ($doc instanceof ObjectDoc
-                            || (
-                                $doc instanceof ArrayDoc
-                                && is_int($sibling->getName())
-                            )
-                        ) {
-                            $siblingDocList[$sibling->getName()] = $siblingDoc;
-                        } else {
-                            $siblingDocList[] = $siblingDoc;
-                        }
-                    }
-                    $paramDocProperties['siblings'] = $siblingDocList;
-                }
-            }
-
-            if ($doc instanceof ArrayDoc || $doc instanceof ObjectDoc) {
-                if (null !== $doc->getMinItem()) {
-                    $paramDocMin['minItems'] = $doc->getMinItem();
-                }
-                if (null !== $doc->getMaxItem()) {
-                    $paramDocMax['maxItems'] = $doc->getMaxItem();
-                }
-            }
-        } elseif ($doc instanceof NumberDoc) {
-            if (null !== $doc->getMin()) {
-                $paramDocMin['minimum'] = $doc->getMin();
-                $paramDocMin['inclusiveMinimum'] = $doc->isInclusiveMin();
-            }
-            if (null !== $doc->getMax()) {
-                $paramDocMax['maximum'] = $doc->getMax();
-                $paramDocMax['inclusiveMaximum'] = $doc->isInclusiveMax();
-            }
-        }
+        $paramDocDescription = [];
 
         if (null !== $doc->getDescription()) {
             $paramDocDescription['description'] = $doc->getDescription();
         }
-        if (null !== $doc->getDefault()) {
-            $paramDocDefault['default'] = $doc->getDefault();
-        }
-        if (null !== $doc->getExample()) {
-            $paramDocExample['example'] = $doc->getExample();
-        }
 
         return $paramDocDescription
-            + $paramDocType
-            + $paramDocFormat
+            + ['type' => $this->normalizeSchemaType($doc)]
             + ['nullable' => $doc->isNullable()]
             + ['required' => $doc->isRequired()]
-            + $paramDocDefault
-            + $paramDocExample
-            + $paramDocEnum
-            + $paramDocMin
-            + $paramDocMax
-            + $paramDocX
-            + $paramDocAdditionalProperties
-            + $paramDocItems
-            + $paramDocProperties
+            + $this->appendMisc($doc)
+            + $this->appendDocEnum($doc)
+            + $this->appendMinMax($doc)
+            + $this->appendObjectDoc($doc)
         ;
     }
 
@@ -125,5 +45,117 @@ class TypeDocNormalizer
         $type = str_replace('Doc', '', lcfirst((new \ReflectionClass($doc))->getShortName()));
 
         return ('parameter' === $type) ? 'string' : $type;
+    }
+
+    /**
+     * @param TypeDoc $doc
+     *
+     * @return array
+     */
+    protected function appendMinMax(TypeDoc $doc) : array
+    {
+        $paramDocMinMax = [];
+        if ($doc instanceof StringDoc) {
+            if (null !== $doc->getMinLength()) {
+                $paramDocMinMax['minLength'] = $doc->getMinLength();
+            }
+            if (null !== $doc->getMaxLength()) {
+                $paramDocMinMax['maxLength'] = $doc->getMaxLength();
+            }
+        } elseif ($doc instanceof ArrayDoc || $doc instanceof ObjectDoc) {
+            if (null !== $doc->getMinItem()) {
+                $paramDocMinMax['minItems'] = $doc->getMinItem();
+            }
+            if (null !== $doc->getMaxItem()) {
+                $paramDocMinMax['maxItems'] = $doc->getMaxItem();
+            }
+        } elseif ($doc instanceof NumberDoc) {
+            if (null !== $doc->getMin()) {
+                $paramDocMinMax['minimum'] = $doc->getMin();
+                $paramDocMinMax['inclusiveMinimum'] = $doc->isInclusiveMin();
+            }
+            if (null !== $doc->getMax()) {
+                $paramDocMinMax['maximum'] = $doc->getMax();
+                $paramDocMinMax['inclusiveMaximum'] = $doc->isInclusiveMax();
+            }
+        }
+
+        return $paramDocMinMax;
+    }
+
+    /**
+     * @param TypeDoc $doc
+     *
+     * @return array
+     */
+    protected function appendObjectDoc(TypeDoc $doc) : array
+    {
+        $paramDocProperties = [];
+        if ($doc instanceof ObjectDoc) {
+            $siblingDocList = [];
+            foreach ($doc->getSiblingList() as $sibling) {
+                $siblingDoc = $this->normalize($sibling);
+                // Use name if :
+                // - parent is object
+                // - parent is array and name is an integer
+                if ($doc instanceof ObjectDoc
+                    || (
+                        $doc instanceof ArrayDoc
+                        && is_int($sibling->getName())
+                    )
+                ) {
+                    $siblingDocList[$sibling->getName()] = $siblingDoc;
+                } else {
+                    $siblingDocList[] = $siblingDoc;
+                }
+            }
+            if (count($siblingDocList)) {
+                $paramDocProperties['siblings'] = $siblingDocList;
+            }
+            $paramDocProperties['allow_extra'] = $doc->isAllowExtraSibling();
+            $paramDocProperties['allow_missing'] = $doc->isAllowMissingSibling();
+
+        }
+
+        return $paramDocProperties;
+    }
+
+    /**
+     * @param TypeDoc $doc
+     *
+     * @return array
+     */
+    protected function appendMisc(TypeDoc $doc) : array
+    {
+        $paramDocMisc = [];
+        if (null !== $doc->getDefault()) {
+            $paramDocMisc['default'] = $doc->getDefault();
+        }
+        if (null !== $doc->getExample()) {
+            $paramDocMisc['example'] = $doc->getExample();
+        }
+
+        if ($doc instanceof StringDoc && null !== $doc->getFormat()) {
+            $paramDocMisc['format'] = $doc->getFormat();
+        } elseif ($doc instanceof ArrayDoc && null !== $doc->getItemValidation()) {
+            $paramDocMisc['item_validation'] = $this->normalize($doc->getItemValidation());
+        }
+
+        return $paramDocMisc;
+    }
+
+    /**
+     * @param TypeDoc $doc
+     *
+     * @return array
+     */
+    protected function appendDocEnum(TypeDoc $doc) : array
+    {
+        $paramDocEnum = [];
+        foreach ($doc->getAllowedValueList() as $value) {
+            $paramDocEnum['allowed_values'][] = $value;
+        }
+
+        return $paramDocEnum;
     }
 }
