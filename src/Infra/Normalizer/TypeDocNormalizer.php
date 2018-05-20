@@ -45,7 +45,7 @@ class TypeDocNormalizer
     {
         $type = str_replace('Doc', '', lcfirst((new \ReflectionClass($doc))->getShortName()));
 
-        return ('parameter' === $type) ? 'string' : $type;
+        return ('type' === $type) ? 'string' : $type;
     }
 
     /**
@@ -55,33 +55,15 @@ class TypeDocNormalizer
      */
     protected function appendMinMax(TypeDoc $doc) : array
     {
-        $paramDocMinMax = [];
         if ($doc instanceof StringDoc) {
-            if (null !== $doc->getMinLength()) {
-                $paramDocMinMax['minLength'] = $doc->getMinLength();
-            }
-            if (null !== $doc->getMaxLength()) {
-                $paramDocMinMax['maxLength'] = $doc->getMaxLength();
-            }
+            return $this->appendStringMinMax($doc);
         } elseif ($doc instanceof CollectionDoc) {
-            if (null !== $doc->getMinItem()) {
-                $paramDocMinMax['minItem'] = $doc->getMinItem();
-            }
-            if (null !== $doc->getMaxItem()) {
-                $paramDocMinMax['maxItem'] = $doc->getMaxItem();
-            }
+            return $this->appendCollectionMinMax($doc);
         } elseif ($doc instanceof NumberDoc) {
-            if (null !== $doc->getMin()) {
-                $paramDocMinMax['minimum'] = $doc->getMin();
-                $paramDocMinMax['inclusiveMinimum'] = $doc->isInclusiveMin();
-            }
-            if (null !== $doc->getMax()) {
-                $paramDocMinMax['maximum'] = $doc->getMax();
-                $paramDocMinMax['inclusiveMaximum'] = $doc->isInclusiveMax();
-            }
+            return $this->appendNumberMinMax($doc);
         }
 
-        return $paramDocMinMax;
+        return [];
     }
 
     /**
@@ -173,5 +155,61 @@ class TypeDocNormalizer
         }
 
         return $siblingDocList;
+    }
+
+    /**
+     * @param StringDoc $stringDoc
+     *
+     * @return array
+     */
+    private function appendStringMinMax(StringDoc $stringDoc)
+    {
+        $doc = [];
+        if (null !== $stringDoc->getMinLength()) {
+            $doc['minLength'] = $stringDoc->getMinLength();
+        }
+        if (null !== $stringDoc->getMaxLength()) {
+            $doc['maxLength'] = $stringDoc->getMaxLength();
+        }
+
+        return $doc;
+    }
+
+    /**
+     * @param CollectionDoc $collectionDoc
+     *
+     * @return array
+     */
+    private function appendCollectionMinMax(CollectionDoc $collectionDoc)
+    {
+        $doc = [];
+        if (null !== $collectionDoc->getMinItem()) {
+            $doc['minItem'] = $collectionDoc->getMinItem();
+        }
+        if (null !== $collectionDoc->getMaxItem()) {
+            $doc['maxItem'] = $collectionDoc->getMaxItem();
+        }
+
+        return $doc;
+    }
+
+    /**
+     * @param TypeDoc $doc
+     * @param $paramDocMinMax
+     * @return mixed
+     */
+    private function appendNumberMinMax(NumberDoc $numberDoc)
+    {
+        $doc = [];
+        if (null !== $numberDoc->getMin()) {
+            $doc['minimum'] = $numberDoc->getMin();
+            $doc['inclusiveMinimum'] = $numberDoc->isInclusiveMin();
+        }
+        if (null !== $numberDoc->getMax()) {
+            $doc['maximum'] = $numberDoc->getMax();
+            $doc['inclusiveMaximum'] = $numberDoc->isInclusiveMax();
+        }
+
+        return $doc;
     }
 }
