@@ -129,7 +129,7 @@ class TypeDocNormalizer
     /**
      * @param CollectionDoc $docObject
      *
-     * @return TypeDoc[]
+     * @return array
      */
     protected function getSiblingDocList(CollectionDoc $docObject) : array
     {
