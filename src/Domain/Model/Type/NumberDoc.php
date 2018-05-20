@@ -49,19 +49,27 @@ class NumberDoc extends ScalarDoc
     }
 
     /**
-     * @param boolean $inclusiveMax
+     * @param bool $inclusiveMax
+     *
+     * @return NumberDoc
      */
-    public function setInclusiveMax($inclusiveMax)
+    public function setInclusiveMax(bool $inclusiveMax) : NumberDoc
     {
         $this->inclusiveMax = $inclusiveMax;
+
+        return $this;
     }
 
     /**
-     * @param boolean $inclusiveMin
+     * @param bool $inclusiveMin
+     *
+     * @return NumberDoc
      */
-    public function setInclusiveMin($inclusiveMin)
+    public function setInclusiveMin(bool $inclusiveMin) : NumberDoc
     {
         $this->inclusiveMin = $inclusiveMin;
+
+        return $this;
     }
 
     /**
@@ -81,17 +89,17 @@ class NumberDoc extends ScalarDoc
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
-    public function isInclusiveMin()
+    public function isInclusiveMin() : bool
     {
         return $this->inclusiveMin;
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
-    public function isInclusiveMax()
+    public function isInclusiveMax() : bool
     {
         return $this->inclusiveMax;
     }
