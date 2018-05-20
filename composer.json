@@ -1,6 +1,6 @@
 {
     "name": "yoanm/jsonrpc-server-doc-sdk",
-    "description": "SDK to generate Http JSON-RPC server documentation",
+    "description": "SDK to generate (Http) JSON-RPC server documentation",
     "license": "MIT",
     "type": "library",
     "support": {
