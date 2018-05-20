@@ -20,8 +20,6 @@ class ErrorDocTest extends TestCase
         $doc = new ErrorDoc($title, $code);
         $this->assertSame($title, $doc->getTitle());
         $this->assertSame($code, $doc->getCode());
-        $this->assertNull($doc->getMessage());
-        $this->assertNull($doc->getDataDoc());
     }
 
     public function testShouldAutomaticallyManageAnIdentifier()
@@ -29,6 +27,14 @@ class ErrorDocTest extends TestCase
         $doc = new ErrorDoc('my-title', -235);
 
         $this->assertNotNull($doc->getIdentifier());
+    }
+
+    public function testShouldHaveANullMessageAndDataDocByDefault()
+    {
+        $doc = new ErrorDoc('my-title', -235);
+
+        $this->assertNull($doc->getMessage());
+        $this->assertNull($doc->getDataDoc());
     }
 
     public function testShouldAllowIdentifierUpdate()
