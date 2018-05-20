@@ -22,9 +22,7 @@ class TypeDocNormalizer
     {
         $paramDocDescription = [];
 
-        if (null !== $doc->getDescription()) {
-            $paramDocDescription['description'] = $doc->getDescription();
-        }
+        $paramDocDescription = $this->appendIfNotNull($paramDocDescription, 'description', $doc->getDescription());
 
         return $paramDocDescription
             + ['type' => $this->normalizeSchemaType($doc)]
@@ -55,15 +53,18 @@ class TypeDocNormalizer
      */
     protected function appendMinMax(TypeDoc $doc) : array
     {
+        $docArray = [];
         if ($doc instanceof StringDoc) {
-            return $this->appendStringMinMax($doc);
+            $docArray = $this->appendIfNotNull($docArray, 'minLength', $doc->getMinLength());
+            $docArray = $this->appendIfNotNull($docArray, 'maxLength', $doc->getMaxLength());
         } elseif ($doc instanceof CollectionDoc) {
-            return $this->appendCollectionMinMax($doc);
+            $docArray = $this->appendIfNotNull($docArray, 'minItem', $doc->getMinItem());
+            $docArray = $this->appendIfNotNull($docArray, 'maxItem', $doc->getMaxItem());
         } elseif ($doc instanceof NumberDoc) {
             return $this->appendNumberMinMax($doc);
         }
 
-        return [];
+        return $docArray;
     }
 
     /**
@@ -79,12 +80,16 @@ class TypeDocNormalizer
             if (count($siblingDocList)) {
                 $paramDocProperties['siblings'] = $siblingDocList;
             }
-            if (true === $doc->isAllowExtraSibling()) {
-                $paramDocProperties['allow_extra'] = $doc->isAllowExtraSibling();
-            }
-            if (true === $doc->isAllowMissingSibling()) {
-                $paramDocProperties['allow_missing'] = $doc->isAllowMissingSibling();
-            }
+            $paramDocProperties = $this->appendIfNotNull(
+                $paramDocProperties,
+                'allow_extra',
+                $doc->isAllowExtraSibling()
+            );
+            $paramDocProperties = $this->appendIfNotNull(
+                $paramDocProperties,
+                'allow_missing',
+                $doc->isAllowMissingSibling()
+            );
         }
 
         return $paramDocProperties;
@@ -98,17 +103,13 @@ class TypeDocNormalizer
     protected function appendMisc(TypeDoc $doc) : array
     {
         $paramDocMisc = [];
-        if (null !== $doc->getDefault()) {
-            $paramDocMisc['default'] = $doc->getDefault();
-        }
-        if (null !== $doc->getExample()) {
-            $paramDocMisc['example'] = $doc->getExample();
-        }
+        $paramDocMisc = $this->appendIfNotNull($paramDocMisc, 'default', $doc->getDefault());
+        $paramDocMisc = $this->appendIfNotNull($paramDocMisc, 'example', $doc->getExample());
 
-        if ($doc instanceof StringDoc && null !== $doc->getFormat()) {
-            $paramDocMisc['format'] = $doc->getFormat();
-        } elseif ($doc instanceof ArrayDoc && null !== $doc->getItemValidation()) {
-            $paramDocMisc['item_validation'] = $this->normalize($doc->getItemValidation());
+        if ($doc instanceof StringDoc) {
+            $paramDocMisc = $this->appendIfNotNull($paramDocMisc, 'format', $doc->getFormat());
+        } elseif ($doc instanceof ArrayDoc) {
+            $paramDocMisc = $this->appendIfNotNull($paramDocMisc, 'item_validation', $doc->getItemValidation());
         }
 
         return $paramDocMisc;
@@ -156,43 +157,6 @@ class TypeDocNormalizer
 
         return $siblingDocList;
     }
-
-    /**
-     * @param StringDoc $stringDoc
-     *
-     * @return array
-     */
-    private function appendStringMinMax(StringDoc $stringDoc)
-    {
-        $doc = [];
-        if (null !== $stringDoc->getMinLength()) {
-            $doc['minLength'] = $stringDoc->getMinLength();
-        }
-        if (null !== $stringDoc->getMaxLength()) {
-            $doc['maxLength'] = $stringDoc->getMaxLength();
-        }
-
-        return $doc;
-    }
-
-    /**
-     * @param CollectionDoc $collectionDoc
-     *
-     * @return array
-     */
-    private function appendCollectionMinMax(CollectionDoc $collectionDoc)
-    {
-        $doc = [];
-        if (null !== $collectionDoc->getMinItem()) {
-            $doc['minItem'] = $collectionDoc->getMinItem();
-        }
-        if (null !== $collectionDoc->getMaxItem()) {
-            $doc['maxItem'] = $collectionDoc->getMaxItem();
-        }
-
-        return $doc;
-    }
-
     /**
      * @param TypeDoc $doc
      * @param $paramDocMinMax
@@ -208,6 +172,22 @@ class TypeDocNormalizer
         if (null !== $numberDoc->getMax()) {
             $doc['maximum'] = $numberDoc->getMax();
             $doc['inclusiveMaximum'] = $numberDoc->isInclusiveMax();
+        }
+
+        return $doc;
+    }
+
+    /**
+     * @param array  $doc
+     * @param string $key
+     * @param mixed  $value
+     *
+     * @return array
+     */
+    private function appendIfNotNull(array $doc, string $key, $value)
+    {
+        if (null !== $value) {
+            $doc[$key] = $value;
         }
 
         return $doc;
