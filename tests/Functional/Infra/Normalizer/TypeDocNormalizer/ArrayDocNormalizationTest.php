@@ -36,7 +36,7 @@ class ArrayDocNormalizationTest extends TestCase
     public function provideArrayDocToNormalize()
     {
         return [
-            'basic doc' => [
+            /*'basic doc' => [
                 'doc' => new ArrayDoc(),
                 'expected' => [
                     'type' => 'array',
@@ -103,7 +103,7 @@ class ArrayDocNormalizationTest extends TestCase
                     'allow_extra' => true,
                     'allow_missing' => true,
                 ],
-            ],
+            ],*/
             'doc with item validation' => [
                 'doc' => (new ArrayDoc())
                     ->setItemValidation(new StringDoc())

@@ -14,24 +14,24 @@ use Yoanm\JsonRpcServerDoc\Domain\Model\Type\TypeDoc;
 class TypeDocNormalizer
 {
     /**
-     * @param TypeDoc $doc
+     * @param TypeDoc $docObject
      *
      * @return array
      */
-    public function normalize(TypeDoc $doc) : array
+    public function normalize(TypeDoc $docObject) : array
     {
-        $paramDocDescription = [];
+        $docArray = [];
 
-        $paramDocDescription = $this->appendIfNotNull($paramDocDescription, 'description', $doc->getDescription());
+        $docArray = $this->appendIfNotNull($docArray, 'description', $docObject->getDescription());
 
-        return $paramDocDescription
-            + ['type' => $this->normalizeSchemaType($doc)]
-            + ['nullable' => $doc->isNullable()]
-            + ['required' => $doc->isRequired()]
-            + $this->appendMisc($doc)
-            + $this->appendDocEnum($doc)
-            + $this->appendMinMax($doc)
-            + $this->appendCollectionDoc($doc)
+        return $docArray
+            + ['type' => $this->normalizeSchemaType($docObject)]
+            + ['nullable' => $docObject->isNullable()]
+            + ['required' => $docObject->isRequired()]
+            + $this->appendMisc($docObject)
+            + $this->appendDocEnum($docObject)
+            + $this->appendMinMax($docObject)
+            + $this->appendCollectionDoc($docObject)
         ;
     }
 
@@ -39,157 +39,154 @@ class TypeDocNormalizer
      * @param string $type
      * @return string
      */
-    protected function normalizeSchemaType(TypeDoc $doc)
+    protected function normalizeSchemaType(TypeDoc $docObject)
     {
-        $type = str_replace('Doc', '', lcfirst((new \ReflectionClass($doc))->getShortName()));
+        $type = str_replace('Doc', '', lcfirst((new \ReflectionClass($docObject))->getShortName()));
 
         return ('type' === $type) ? 'string' : $type;
     }
 
     /**
-     * @param TypeDoc $doc
+     * @param TypeDoc $docObject
      *
      * @return array
      */
-    protected function appendMinMax(TypeDoc $doc) : array
+    protected function appendMinMax(TypeDoc $docObject) : array
     {
         $docArray = [];
-        if ($doc instanceof StringDoc) {
-            $docArray = $this->appendIfNotNull($docArray, 'minLength', $doc->getMinLength());
-            $docArray = $this->appendIfNotNull($docArray, 'maxLength', $doc->getMaxLength());
-        } elseif ($doc instanceof CollectionDoc) {
-            $docArray = $this->appendIfNotNull($docArray, 'minItem', $doc->getMinItem());
-            $docArray = $this->appendIfNotNull($docArray, 'maxItem', $doc->getMaxItem());
-        } elseif ($doc instanceof NumberDoc) {
-            return $this->appendNumberMinMax($doc);
+        if ($docObject instanceof StringDoc) {
+            $docArray = $this->appendIfNotNull($docArray, 'minLength', $docObject->getMinLength());
+            $docArray = $this->appendIfNotNull($docArray, 'maxLength', $docObject->getMaxLength());
+        } elseif ($docObject instanceof CollectionDoc) {
+            $docArray = $this->appendIfNotNull($docArray, 'minItem', $docObject->getMinItem());
+            $docArray = $this->appendIfNotNull($docArray, 'maxItem', $docObject->getMaxItem());
+        } elseif ($docObject instanceof NumberDoc) {
+            return $this->appendNumberMinMax($docObject);
         }
 
         return $docArray;
     }
 
     /**
-     * @param TypeDoc $doc
+     * @param TypeDoc $docObject
      *
      * @return array
      */
-    protected function appendCollectionDoc(TypeDoc $doc) : array
+    protected function appendCollectionDoc(TypeDoc $docObject) : array
     {
-        $paramDocProperties = [];
-        if ($doc instanceof CollectionDoc) {
-            $siblingDocList = $this->getSiblingDocList($doc);
+        $docArray = [];
+        if ($docObject instanceof CollectionDoc) {
+            $siblingDocList = $this->getSiblingDocList($docObject);
             if (count($siblingDocList)) {
-                $paramDocProperties['siblings'] = $siblingDocList;
+                $docArray['siblings'] = $siblingDocList;
             }
-            $paramDocProperties = $this->appendIfNotNull(
-                $paramDocProperties,
-                'allow_extra',
-                $doc->isAllowExtraSibling()
-            );
-            $paramDocProperties = $this->appendIfNotNull(
-                $paramDocProperties,
-                'allow_missing',
-                $doc->isAllowMissingSibling()
-            );
+            if (true === $docObject->isAllowExtraSibling()) {
+                $docArray['allow_extra'] = $docObject->isAllowExtraSibling();
+            }
+            if (true === $docObject->isAllowMissingSibling()) {
+                $docArray['allow_missing'] = $docObject->isAllowMissingSibling();
+            }
         }
 
-        return $paramDocProperties;
+        return $docArray;
     }
 
     /**
-     * @param TypeDoc $doc
+     * @param TypeDoc $docObject
      *
      * @return array
      */
-    protected function appendMisc(TypeDoc $doc) : array
+    protected function appendMisc(TypeDoc $docObject) : array
     {
-        $paramDocMisc = [];
-        $paramDocMisc = $this->appendIfNotNull($paramDocMisc, 'default', $doc->getDefault());
-        $paramDocMisc = $this->appendIfNotNull($paramDocMisc, 'example', $doc->getExample());
+        $docArray = [];
+        $docArray = $this->appendIfNotNull($docArray, 'default', $docObject->getDefault());
+        $docArray = $this->appendIfNotNull($docArray, 'example', $docObject->getExample());
 
-        if ($doc instanceof StringDoc) {
-            $paramDocMisc = $this->appendIfNotNull($paramDocMisc, 'format', $doc->getFormat());
-        } elseif ($doc instanceof ArrayDoc) {
-            $paramDocMisc = $this->appendIfNotNull($paramDocMisc, 'item_validation', $doc->getItemValidation());
+        if ($docObject instanceof StringDoc) {
+            $docArray = $this->appendIfNotNull($docArray, 'format', $docObject->getFormat());
+        } elseif ($docObject instanceof ArrayDoc && null !== $docObject->getItemValidation()) {
+            $docArray['item_validation'] = $this->normalize($docObject->getItemValidation());
         }
 
-        return $paramDocMisc;
+        return $docArray;
     }
 
     /**
-     * @param TypeDoc $doc
+     * @param TypeDoc $docObject
      *
      * @return array
      */
-    protected function appendDocEnum(TypeDoc $doc) : array
+    protected function appendDocEnum(TypeDoc $docObject) : array
     {
-        $paramDocEnum = [];
-        foreach ($doc->getAllowedValueList() as $value) {
-            $paramDocEnum['allowed_values'][] = $value;
+        $docArray = [];
+        foreach ($docObject->getAllowedValueList() as $value) {
+            $docArray['allowed_values'][] = $value;
         }
 
-        return $paramDocEnum;
+        return $docArray;
     }
 
     /**
-     * @param CollectionDoc $doc
+     * @param CollectionDoc $docObject
      *
      * @return TypeDoc[]
      */
-    protected function getSiblingDocList(CollectionDoc $doc) : array
+    protected function getSiblingDocList(CollectionDoc $docObject) : array
     {
-        $siblingDocList = [];
-        foreach ($doc->getSiblingList() as $sibling) {
-            $siblingDoc = $this->normalize($sibling);
+        $docArray = [];
+        foreach ($docObject->getSiblingList() as $siblingDocObject) {
+            $siblingDocArray = $this->normalize($siblingDocObject);
             // Use name if :
             // - parent is object
             // - parent is array and name is an integer
-            if ($doc instanceof ObjectDoc
+            if ($docObject instanceof ObjectDoc
                 || (
-                    $doc instanceof ArrayDoc
-                    && is_int($sibling->getName())
+                    $docObject instanceof ArrayDoc
+                    && is_int($siblingDocObject->getName())
                 )
             ) {
-                $siblingDocList[$sibling->getName()] = $siblingDoc;
+                $docArray[$siblingDocObject->getName()] = $siblingDocArray;
             } else {
-                $siblingDocList[] = $siblingDoc;
+                $docArray[] = $siblingDocArray;
             }
         }
 
-        return $siblingDocList;
+        return $docArray;
     }
+
     /**
-     * @param TypeDoc $doc
-     * @param $paramDocMinMax
-     * @return mixed
+     * @param NumberDoc $docObject
+     *
+     * @return array
      */
-    private function appendNumberMinMax(NumberDoc $numberDoc)
+    private function appendNumberMinMax(NumberDoc $docObject)
     {
-        $doc = [];
-        if (null !== $numberDoc->getMin()) {
-            $doc['minimum'] = $numberDoc->getMin();
-            $doc['inclusiveMinimum'] = $numberDoc->isInclusiveMin();
+        $docArray = [];
+        if (null !== $docObject->getMin()) {
+            $docArray['minimum'] = $docObject->getMin();
+            $docArray['inclusiveMinimum'] = $docObject->isInclusiveMin();
         }
-        if (null !== $numberDoc->getMax()) {
-            $doc['maximum'] = $numberDoc->getMax();
-            $doc['inclusiveMaximum'] = $numberDoc->isInclusiveMax();
+        if (null !== $docObject->getMax()) {
+            $docArray['maximum'] = $docObject->getMax();
+            $docArray['inclusiveMaximum'] = $docObject->isInclusiveMax();
         }
 
-        return $doc;
+        return $docArray;
     }
 
     /**
-     * @param array  $doc
+     * @param array  $docArray
      * @param string $key
      * @param mixed  $value
      *
      * @return array
      */
-    private function appendIfNotNull(array $doc, string $key, $value)
+    private function appendIfNotNull(array $docArray, string $key, $value) : array
     {
         if (null !== $value) {
-            $doc[$key] = $value;
+            $docArray[$key] = $value;
         }
 
-        return $doc;
+        return $docArray;
     }
 }
