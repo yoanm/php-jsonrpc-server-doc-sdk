@@ -7,7 +7,7 @@
 
 [![Latest Stable Version](https://img.shields.io/packagist/v/yoanm/jsonrpc-server-doc-sdk.svg)](https://packagist.org/packages/yoanm/jsonrpc-server-doc-sdk) [![Packagist PHP version](https://img.shields.io/packagist/php-v/yoanm/jsonrpc-server-doc-sdk.svg)](https://packagist.org/packages/yoanm/jsonrpc-server-doc-sdk)
 
-Php SDK to generate Http JSON-RPC server documentation
+Php SDK to generate (Http) JSON-RPC server documentation
 
 ## How to use
 
