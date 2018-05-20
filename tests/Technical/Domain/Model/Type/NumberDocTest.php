@@ -1,5 +1,5 @@
 <?php
-namespace Tests\Technical\Domain\Model;
+namespace Tests\Technical\Domain\Model\Type;
 
 use PHPUnit\Framework\TestCase;
 use Yoanm\JsonRpcServerDoc\Domain\Model\Type\NumberDoc;
