@@ -92,7 +92,7 @@ class ServerDoc
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getName()
     {
@@ -100,7 +100,7 @@ class ServerDoc
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getVersion()
     {

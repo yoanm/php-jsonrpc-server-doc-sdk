@@ -12,11 +12,11 @@ class MethodDoc
     private $methodName;
     /** @var string */
     private $identifier;
-    /** @var null|TypeDoc */
+    /** @var TypeDoc|null */
     private $paramsDoc = null;
-    /** @var null|TypeDoc */
+    /** @var TypeDoc|null */
     private $resultDoc = null;
-    /** @var null|string */
+    /** @var string|null */
     private $description = null;
     /** @var string[] */
     private $tags = [];
@@ -160,7 +160,7 @@ class MethodDoc
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getDescription()
     {

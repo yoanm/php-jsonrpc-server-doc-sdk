@@ -15,8 +15,8 @@ class ErrorDoc
     /** @var int */
     private $code;
     /** @var string|null */
-    private $message;
-    /** @var null|TypeDoc */
+    private $message = null;
+    /** @var TypeDoc|null */
     private $dataDoc = null;
 
     /**
@@ -37,6 +37,7 @@ class ErrorDoc
         $this->code = $code;
         $this->message = $message;
         $this->dataDoc = $dataDoc;
+        // Use title and code as id if not provided
         $this->setIdentifier($identifier ?? $title.((string)$code));
     }
 
@@ -51,7 +52,7 @@ class ErrorDoc
         $this->identifier = strtr(
             ucwords(strtr(
                 $identifier,
-                ['_' => ' ', '/' => ' ', '.' => '_ ', '\\' => '_ ']
+                ['_' => ' ', '/' => '-', '.' => '_ ', '\\' => '_ ']
             )),
             [' ' => '']
         );
@@ -88,7 +89,7 @@ class ErrorDoc
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getMessage()
     {

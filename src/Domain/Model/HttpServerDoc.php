@@ -64,7 +64,7 @@ class HttpServerDoc extends ServerDoc
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getEndpoint()
     {
@@ -72,7 +72,7 @@ class HttpServerDoc extends ServerDoc
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getHost()
     {
@@ -80,7 +80,7 @@ class HttpServerDoc extends ServerDoc
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getBasePath()
     {
