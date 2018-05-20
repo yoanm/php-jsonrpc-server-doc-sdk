@@ -47,7 +47,7 @@ class MethodDoc
         $this->identifier = strtr(
             ucwords(strtr(
                 $identifier,
-                ['_' => ' ', '/' => ' ', '.' => '_ ', '\\' => '_ ']
+                ['_' => ' ', '/' => '-', '.' => '_ ', '\\' => '_ ']
             )),
             [' ' => '']
         );

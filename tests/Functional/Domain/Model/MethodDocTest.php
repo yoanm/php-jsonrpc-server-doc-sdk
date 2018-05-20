@@ -4,8 +4,6 @@ namespace Tests\Functional\Domain\Model;
 use PHPUnit\Framework\TestCase;
 use Yoanm\JsonRpcServerDoc\Domain\Model\ErrorDoc;
 use Yoanm\JsonRpcServerDoc\Domain\Model\MethodDoc;
-use Yoanm\JsonRpcServerDoc\Domain\Model\TagDoc;
-use Yoanm\JsonRpcServerDoc\Domain\Model\Type\ArrayDoc;
 use Yoanm\JsonRpcServerDoc\Domain\Model\Type\BooleanDoc;
 
 /**
