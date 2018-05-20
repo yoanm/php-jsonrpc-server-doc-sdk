@@ -44,27 +44,11 @@ class MethodDocNormalizer
                 'params' => $this->typeDocNormalizer->normalize($doc->getParamsDoc())
             ];
         }
-
-        // Create custom result schema if provided
+        // Create custom result schema only if provided
         if (null !== $doc->getResultDoc()) {
             $responseSchema['result'] = $this->typeDocNormalizer->normalize($doc->getResultDoc());
         }
 
-        // Create custom result schema if provided
-        if (count($doc->getCustomErrorList()) || count($doc->getGlobalErrorRefList())) {
-                $responseSchema['errors'] = array_merge(
-                    array_map(
-                        [$this->errorDocNormalizer, 'normalize'],
-                        $doc->getCustomErrorList()
-                    ),
-                    array_map(
-                        function ($errorIdentifier) {
-                            return ['$ref' => sprintf('#/errors/%s', $errorIdentifier)];
-                        },
-                        $doc->getGlobalErrorRefList()
-                    )
-                );
-        }
 
         return [
             'identifier' => $doc->getIdentifier(),
@@ -74,6 +58,34 @@ class MethodDocNormalizer
             + $docTags
             + $paramsSchema
             + $responseSchema
+            + $this->appendErrorsSchema($doc);
         ;
+    }
+
+    /**
+     * @param MethodDoc $docObject
+     *
+     * @return array
+     */
+    private function appendErrorsSchema(MethodDoc $docObject)
+    {
+        $docArray = [];
+        // Create custom result schema only if provided
+        if (count($docObject->getCustomErrorList()) || count($docObject->getGlobalErrorRefList())) {
+            $docArray['errors'] = array_merge(
+                array_map(
+                    [$this->errorDocNormalizer, 'normalize'],
+                    $docObject->getCustomErrorList()
+                ),
+                array_map(
+                    function ($errorIdentifier) {
+                        return ['$ref' => sprintf('#/errors/%s', $errorIdentifier)];
+                    },
+                    $docObject->getGlobalErrorRefList()
+                )
+            );
+        }
+
+        return $docArray;
     }
 }
