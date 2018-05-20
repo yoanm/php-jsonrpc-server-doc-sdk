@@ -1,5 +1,5 @@
 <?php
-namespace Tests\Functional\Domain\Model;
+namespace Tests\Functional\Domain\Model\Type;
 
 use PHPUnit\Framework\TestCase;
 use Yoanm\JsonRpcServerDoc\Domain\Model\Type\ArrayDoc;
