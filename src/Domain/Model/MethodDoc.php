@@ -19,7 +19,7 @@ class MethodDoc
     /** @var string|null */
     private $description = null;
     /** @var string[] */
-    private $tags = [];
+    private $tagList = [];
     /** @var ErrorDoc[] */
     private $customErrorList = [];
     /** @var string[] */
@@ -98,7 +98,7 @@ class MethodDoc
      */
     public function addTag(string $tag) : MethodDoc
     {
-        $this->tags[] = $tag;
+        $this->tagList[] = $tag;
 
         return $this;
     }
@@ -170,9 +170,9 @@ class MethodDoc
     /**
      * @return string[]
      */
-    public function getTags() : array
+    public function getTagList() : array
     {
-        return $this->tags;
+        return $this->tagList;
     }
 
     /**
