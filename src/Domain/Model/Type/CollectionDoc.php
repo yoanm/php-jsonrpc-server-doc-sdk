@@ -81,7 +81,7 @@ class CollectionDoc extends TypeDoc
     /**
      * @return null|int
      */
-    public function getMinItem()
+    public function getMinItem() : ?int
     {
         return $this->minItem;
     }
@@ -89,7 +89,7 @@ class CollectionDoc extends TypeDoc
     /**
      * @return null|int
      */
-    public function getMaxItem()
+    public function getMaxItem() : ?int
     {
         return $this->maxItem;
     }

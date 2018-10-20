@@ -32,8 +32,7 @@ class MethodDoc
     public function __construct(string $methodName, string $identifier = null)
     {
         $this->methodName = $methodName;
-        $this->setIdentifier($identifier ?? $methodName)
-        ;
+        $this->setIdentifier($identifier ?? $methodName);
     }
 
     /**
@@ -138,7 +137,7 @@ class MethodDoc
     /**
      * @return TypeDoc|null
      */
-    public function getParamsDoc()
+    public function getParamsDoc() : ?TypeDoc
     {
         return $this->paramsDoc;
     }
@@ -146,7 +145,7 @@ class MethodDoc
     /**
      * @return TypeDoc|null
      */
-    public function getResultDoc()
+    public function getResultDoc() : ?TypeDoc
     {
         return $this->resultDoc;
     }
@@ -162,7 +161,7 @@ class MethodDoc
     /**
      * @return string|null
      */
-    public function getDescription()
+    public function getDescription() : ?string
     {
         return $this->description;
     }

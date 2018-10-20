@@ -53,7 +53,7 @@ class StringDoc extends ScalarDoc
     /**
      * @return string|null
      */
-    public function getFormat()
+    public function getFormat() : ?string
     {
         return $this->format;
     }
@@ -61,7 +61,7 @@ class StringDoc extends ScalarDoc
     /**
      * @return int|null
      */
-    public function getMinLength()
+    public function getMinLength() : ?int
     {
         return $this->minLength;
     }
@@ -69,7 +69,7 @@ class StringDoc extends ScalarDoc
     /**
      * @return int|null
      */
-    public function getMaxLength()
+    public function getMaxLength() : ?int
     {
         return $this->maxLength;
     }

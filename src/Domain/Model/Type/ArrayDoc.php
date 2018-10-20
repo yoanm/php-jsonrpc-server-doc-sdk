@@ -24,7 +24,7 @@ class ArrayDoc extends CollectionDoc
     /**
      * @return TypeDoc|null
      */
-    public function getItemValidation()
+    public function getItemValidation() : ?TypeDoc
     {
         return $this->itemValidation;
     }

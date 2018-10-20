@@ -67,7 +67,7 @@ class MethodDocNormalizer
      *
      * @return array
      */
-    private function appendErrorsSchema(MethodDoc $docObject)
+    private function appendErrorsSchema(MethodDoc $docObject) : array
     {
         $docArray = [];
         // Create custom result schema only if provided

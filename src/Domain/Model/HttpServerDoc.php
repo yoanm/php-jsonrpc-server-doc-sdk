@@ -66,7 +66,7 @@ class HttpServerDoc extends ServerDoc
     /**
      * @return string|null
      */
-    public function getEndpoint()
+    public function getEndpoint() : ?string
     {
         return $this->endpoint;
     }
@@ -74,7 +74,7 @@ class HttpServerDoc extends ServerDoc
     /**
      * @return string|null
      */
-    public function getHost()
+    public function getHost() : ?string
     {
         return $this->host;
     }
@@ -82,7 +82,7 @@ class HttpServerDoc extends ServerDoc
     /**
      * @return string|null
      */
-    public function getBasePath()
+    public function getBasePath() : ?string
     {
         return $this->basePath;
     }
