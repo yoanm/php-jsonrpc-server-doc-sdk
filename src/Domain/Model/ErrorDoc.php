@@ -91,7 +91,7 @@ class ErrorDoc
     /**
      * @return string|null
      */
-    public function getMessage()
+    public function getMessage() : ?string
     {
         return $this->message;
     }
@@ -99,7 +99,7 @@ class ErrorDoc
     /**
      * @return TypeDoc|null
      */
-    public function getDataDoc()
+    public function getDataDoc() : ?TypeDoc
     {
         return $this->dataDoc;
     }

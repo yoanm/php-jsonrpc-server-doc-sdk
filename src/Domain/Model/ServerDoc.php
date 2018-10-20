@@ -94,7 +94,7 @@ class ServerDoc
     /**
      * @return string|null
      */
-    public function getName()
+    public function getName() : ?string
     {
         return $this->name;
     }
@@ -102,7 +102,7 @@ class ServerDoc
     /**
      * @return string|null
      */
-    public function getVersion()
+    public function getVersion() : ?string
     {
         return $this->version;
     }

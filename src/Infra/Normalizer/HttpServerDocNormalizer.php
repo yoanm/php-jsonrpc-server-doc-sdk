@@ -24,7 +24,7 @@ class HttpServerDocNormalizer
      *
      * @return array
      */
-    public function normalize(HttpServerDoc $doc)
+    public function normalize(HttpServerDoc $doc) : array
     {
         $normalizedDoc = $this->serverDocNormalizer->normalize($doc);
 
