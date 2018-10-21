@@ -21,7 +21,7 @@ class TypeDocNormalizerTest extends TestCase
     }
 
     /**
-     * @dataProvider poprovideTypeDocToNormalize
+     * @dataProvider provideTypeDocToNormalize
      *
      * @param TypeDoc $doc
      * @param array   $expectedResult
@@ -31,7 +31,7 @@ class TypeDocNormalizerTest extends TestCase
         $this->assertSame($expectedResult, $this->normalizer->normalize($doc));
     }
 
-    public function poprovideTypeDocToNormalize()
+    public function provideTypeDocToNormalize()
     {
         return [
             'basic doc' => [
