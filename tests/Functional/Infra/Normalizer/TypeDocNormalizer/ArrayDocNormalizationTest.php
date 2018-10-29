@@ -36,7 +36,7 @@ class ArrayDocNormalizationTest extends TestCase
     public function provideArrayDocToNormalize()
     {
         return [
-            /*'basic doc' => [
+            'basic doc' => [
                 'doc' => new ArrayDoc(),
                 'expected' => [
                     'type' => 'array',
@@ -69,7 +69,7 @@ class ArrayDocNormalizationTest extends TestCase
                     'type' => 'array',
                     'nullable' => true,
                     'required' => false,
-                    'minItem' => 4,
+                    'min_item' => 4,
                 ],
             ],
             'doc with maximum item' => [
@@ -80,7 +80,7 @@ class ArrayDocNormalizationTest extends TestCase
                     'type' => 'array',
                     'nullable' => true,
                     'required' => false,
-                    'maxItem' => 12,
+                    'max_item' => 12,
                 ],
             ],
             'doc with mandatory siblings' => [
@@ -103,7 +103,7 @@ class ArrayDocNormalizationTest extends TestCase
                     'allow_extra' => true,
                     'allow_missing' => true,
                 ],
-            ],*/
+            ],
             'doc with item validation' => [
                 'doc' => (new ArrayDoc())
                     ->setItemValidation(new StringDoc())
@@ -139,8 +139,8 @@ class ArrayDocNormalizationTest extends TestCase
                     'required' => true,
                     'default' => [],
                     'example' => ['test'],
-                    'minItem' => 4,
-                    'maxItem' => 12,
+                    'min_item' => 4,
+                    'max_item' => 12,
                     'siblings' => [
                         [
                             'type' => 'string',

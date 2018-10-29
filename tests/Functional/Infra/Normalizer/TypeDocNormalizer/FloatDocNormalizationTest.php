@@ -69,7 +69,7 @@ class FloatDocNormalizationTest extends TestCase
                     'nullable' => true,
                     'required' => false,
                     'minimum' => 3.6,
-                    'inclusiveMinimum' => true,
+                    'inclusive_minimum' => true,
                 ],
             ],
             'doc with max' => [
@@ -81,7 +81,7 @@ class FloatDocNormalizationTest extends TestCase
                     'nullable' => true,
                     'required' => false,
                     'maximum' => 5.2,
-                    'inclusiveMaximum' => true,
+                    'inclusive_maximum' => true,
                 ],
             ],
             'doc with exclusive min/max' => [
@@ -96,9 +96,9 @@ class FloatDocNormalizationTest extends TestCase
                     'nullable' => true,
                     'required' => false,
                     'minimum' => 3.6,
-                    'inclusiveMinimum' => false,
+                    'inclusive_minimum' => false,
                     'maximum' => 5.2,
-                    'inclusiveMaximum' => false,
+                    'inclusive_maximum' => false,
                 ],
             ],
             'full doc' => [
@@ -121,9 +121,9 @@ class FloatDocNormalizationTest extends TestCase
                     'default' => 14.24,
                     'example' => 255.25,
                     'minimum' => 3.6,
-                    'inclusiveMinimum' => false,
+                    'inclusive_minimum' => false,
                     'maximum' => 5.2,
-                    'inclusiveMaximum' => false,
+                    'inclusive_maximum' => false,
                 ],
             ]
         ];

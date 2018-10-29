@@ -57,7 +57,7 @@ class TypeDoc
      *
      * @return TypeDoc
      */
-    public function setRequired(bool $required) : TypeDoc
+    public function setRequired(bool $required = true) : TypeDoc
     {
         $this->required = $required;
 
@@ -69,7 +69,7 @@ class TypeDoc
      *
      * @return TypeDoc
      */
-    public function setNullable(bool $nullable) : TypeDoc
+    public function setNullable(bool $nullable = true) : TypeDoc
     {
         $this->nullable = $nullable;
 

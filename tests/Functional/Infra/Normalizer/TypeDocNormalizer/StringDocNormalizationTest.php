@@ -79,7 +79,7 @@ class StringDocNormalizationTest extends TestCase
                     'type' => 'string',
                     'nullable' => true,
                     'required' => false,
-                    'minLength' => 6,
+                    'min_length' => 6,
                 ],
             ],
             'doc with a max length' => [
@@ -90,7 +90,7 @@ class StringDocNormalizationTest extends TestCase
                     'type' => 'string',
                     'nullable' => true,
                     'required' => false,
-                    'maxLength' => 6,
+                    'max_length' => 6,
                 ],
             ],
             'enum doc' => [
@@ -129,8 +129,8 @@ class StringDocNormalizationTest extends TestCase
                     'example' => 'my-example',
                     'format' => 'my-format',
                     'allowed_values' => [124, 324, 541],
-                    'minLength' => 6,
-                    'maxLength' => 12,
+                    'min_length' => 6,
+                    'max_length' => 12,
                 ],
             ]
         ];

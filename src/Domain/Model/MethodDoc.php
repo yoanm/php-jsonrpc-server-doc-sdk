@@ -62,6 +62,7 @@ class MethodDoc
     public function setParamsDoc(TypeDoc $paramsDoc) : MethodDoc
     {
         $this->paramsDoc = $paramsDoc;
+        $this->paramsDoc->setRequired();
 
         return $this;
     }
