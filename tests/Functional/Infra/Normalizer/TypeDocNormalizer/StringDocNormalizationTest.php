@@ -103,7 +103,7 @@ class StringDocNormalizationTest extends TestCase
                     'type' => 'string',
                     'nullable' => true,
                     'required' => false,
-                    'allowed_values' => [124, 324, 541],
+                    'allowedValues' => [124, 324, 541],
                 ],
             ],
             'full doc' => [
@@ -128,7 +128,7 @@ class StringDocNormalizationTest extends TestCase
                     'default' => 'my-default',
                     'example' => 'my-example',
                     'format' => 'my-format',
-                    'allowed_values' => [124, 324, 541],
+                    'allowedValues' => [124, 324, 541],
                     'minLength' => 6,
                     'maxLength' => 12,
                 ],

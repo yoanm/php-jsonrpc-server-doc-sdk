@@ -120,7 +120,7 @@ class TypeDocNormalizer
     {
         $docArray = [];
         foreach ($docObject->getAllowedValueList() as $value) {
-            $docArray['allowed_values'][] = $value;
+            $docArray['allowedValues'][] = $value;
         }
 
         return $docArray;
