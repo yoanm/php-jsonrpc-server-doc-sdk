@@ -9,6 +9,7 @@ Feature: TagDocNormalizer
       "name": "tagA"
     }
     """
+
   Scenario: Tag normalization with description
     Given I have a TagDoc named "tag-b" with following description:
     """

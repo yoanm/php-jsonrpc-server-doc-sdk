@@ -19,12 +19,7 @@ Feature: ServerDocNormalizer
     """
 
   Scenario: Server methods list normalization
-    Given I have a ServerDoc with following calls:
-    """
-    [
-      {"method": "setName", "arguments": ["my-server-2"]}
-    ]
-    """
+    Given I have a ServerDoc
     And I have a MethodDoc with name "method-a" and following calls:
     """
     [
@@ -45,9 +40,6 @@ Feature: ServerDocNormalizer
     Then I should have following normalized server:
     """
     {
-      "info": {
-        "name": "my-server-2"
-      },
       "methods": [
         {
           "identifier": "Method-a",

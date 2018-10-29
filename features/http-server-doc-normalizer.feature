@@ -18,13 +18,8 @@ Feature: HttpServerDocNormalizer
     }
     """
 
-  Scenario: Server http methods list normalization
-    Given I have an HttpServerDoc with following calls:
-    """
-    [
-      {"method": "setName", "arguments": ["my-server-2"]}
-    ]
-    """
+  Scenario: Http server methods list normalization
+    Given I have an HttpServerDoc
     And I have a MethodDoc with name "method-a" and following calls:
     """
     [
@@ -45,9 +40,6 @@ Feature: HttpServerDocNormalizer
     Then I should have following normalized http server:
     """
     {
-      "info": {
-        "name": "my-server-2"
-      },
       "methods": [
         {
           "identifier": "Method-a",
