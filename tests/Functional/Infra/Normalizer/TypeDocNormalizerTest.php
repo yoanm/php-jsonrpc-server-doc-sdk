@@ -47,7 +47,7 @@ class TypeDocNormalizerTest extends TestCase
                     ->setDescription('my-description')
                     ->setDefault(true)
                     ->setExample(false)
-                    ->setRequired(true)
+                    ->setRequired()
                     ->setNullable(false)
                 ,
                 'expected' => [

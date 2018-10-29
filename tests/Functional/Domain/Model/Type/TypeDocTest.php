@@ -34,7 +34,7 @@ class TypeDocTest extends TestCase
         $doc = new TypeDoc();
         // False by default
         $this->assertFalse($doc->isRequired());
-        $doc->setRequired(true);
+        $doc->setRequired();
         $this->assertTrue($doc->isRequired());
     }
 

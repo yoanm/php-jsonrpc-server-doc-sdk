@@ -45,7 +45,7 @@ class StringDocNormalizationTest extends TestCase
             ],
             'doc with a description, a default, an example, required flag and not nullable' => [
                 'doc' => (new StringDoc())
-                    ->setRequired(true)
+                    ->setRequired()
                     ->setNullable(false)
                     ->setDescription('my-description')
                     ->setDefault('my-default')
@@ -79,7 +79,7 @@ class StringDocNormalizationTest extends TestCase
                     'type' => 'string',
                     'nullable' => true,
                     'required' => false,
-                    'min_length' => 6,
+                    'minLength' => 6,
                 ],
             ],
             'doc with a max length' => [
@@ -90,7 +90,7 @@ class StringDocNormalizationTest extends TestCase
                     'type' => 'string',
                     'nullable' => true,
                     'required' => false,
-                    'max_length' => 6,
+                    'maxLength' => 6,
                 ],
             ],
             'enum doc' => [
@@ -114,7 +114,7 @@ class StringDocNormalizationTest extends TestCase
                     ->setDescription('my-description')
                     ->setDefault('my-default')
                     ->setExample('my-example')
-                    ->setRequired(true)
+                    ->setRequired()
                     ->addAllowedValue(124)
                     ->addAllowedValue(324)
                     ->addAllowedValue(541)
@@ -129,8 +129,8 @@ class StringDocNormalizationTest extends TestCase
                     'example' => 'my-example',
                     'format' => 'my-format',
                     'allowed_values' => [124, 324, 541],
-                    'min_length' => 6,
-                    'max_length' => 12,
+                    'minLength' => 6,
+                    'maxLength' => 12,
                 ],
             ]
         ];

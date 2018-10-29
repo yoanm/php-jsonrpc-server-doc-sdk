@@ -45,7 +45,7 @@ class IntegerDocNormalizationTest extends TestCase
             ],
             'doc with a description, a default, an example, required flag and not nullable' => [
                 'doc' => (new IntegerDoc())
-                    ->setRequired(true)
+                    ->setRequired()
                     ->setNullable(false)
                     ->setDescription('my-description')
                     ->setDefault(24)
@@ -69,7 +69,7 @@ class IntegerDocNormalizationTest extends TestCase
                     'nullable' => true,
                     'required' => false,
                     'minimum' => 3,
-                    'inclusive_minimum' => true,
+                    'inclusiveMinimum' => true,
                 ],
             ],
             'doc with max' => [
@@ -81,7 +81,7 @@ class IntegerDocNormalizationTest extends TestCase
                     'nullable' => true,
                     'required' => false,
                     'maximum' => 5,
-                    'inclusive_maximum' => true,
+                    'inclusiveMaximum' => true,
                 ],
             ],
             'doc with exclusive min/max' => [
@@ -96,9 +96,9 @@ class IntegerDocNormalizationTest extends TestCase
                     'nullable' => true,
                     'required' => false,
                     'minimum' => 3,
-                    'inclusive_minimum' => false,
+                    'inclusiveMinimum' => false,
                     'maximum' => 5,
-                    'inclusive_maximum' => false,
+                    'inclusiveMaximum' => false,
                 ],
             ],
             'full doc' => [
@@ -110,7 +110,7 @@ class IntegerDocNormalizationTest extends TestCase
                     ->setDescription('my-description')
                     ->setDefault(24)
                     ->setExample(12)
-                    ->setRequired(true)
+                    ->setRequired()
                     ->setNullable(false)
                 ,
                 'expected' => [
@@ -121,9 +121,9 @@ class IntegerDocNormalizationTest extends TestCase
                     'default' => 24,
                     'example' => 12,
                     'minimum' => 3,
-                    'inclusive_minimum' => false,
+                    'inclusiveMinimum' => false,
                     'maximum' => 5,
-                    'inclusive_maximum' => false,
+                    'inclusiveMaximum' => false,
                 ],
             ]
         ];

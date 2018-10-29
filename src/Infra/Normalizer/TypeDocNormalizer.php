@@ -55,11 +55,11 @@ class TypeDocNormalizer
     {
         $docArray = [];
         if ($docObject instanceof StringDoc) {
-            $docArray = $this->appendIfNotNull($docArray, 'min_length', $docObject->getMinLength());
-            $docArray = $this->appendIfNotNull($docArray, 'max_length', $docObject->getMaxLength());
+            $docArray = $this->appendIfNotNull($docArray, 'minLength', $docObject->getMinLength());
+            $docArray = $this->appendIfNotNull($docArray, 'maxLength', $docObject->getMaxLength());
         } elseif ($docObject instanceof CollectionDoc) {
-            $docArray = $this->appendIfNotNull($docArray, 'min_item', $docObject->getMinItem());
-            $docArray = $this->appendIfNotNull($docArray, 'max_item', $docObject->getMaxItem());
+            $docArray = $this->appendIfNotNull($docArray, 'minItem', $docObject->getMinItem());
+            $docArray = $this->appendIfNotNull($docArray, 'maxItem', $docObject->getMaxItem());
         } elseif ($docObject instanceof NumberDoc) {
             return $this->appendNumberMinMax($docObject);
         }
@@ -81,10 +81,10 @@ class TypeDocNormalizer
                 $docArray['siblings'] = $siblingDocList;
             }
             if (true === $docObject->isAllowExtraSibling()) {
-                $docArray['allow_extra'] = $docObject->isAllowExtraSibling();
+                $docArray['allowExtra'] = $docObject->isAllowExtraSibling();
             }
             if (true === $docObject->isAllowMissingSibling()) {
-                $docArray['allow_missing'] = $docObject->isAllowMissingSibling();
+                $docArray['allowMissing'] = $docObject->isAllowMissingSibling();
             }
         }
 
@@ -164,11 +164,11 @@ class TypeDocNormalizer
         $docArray = [];
         if (null !== $docObject->getMin()) {
             $docArray['minimum'] = $docObject->getMin();
-            $docArray['inclusive_minimum'] = $docObject->isInclusiveMin();
+            $docArray['inclusiveMinimum'] = $docObject->isInclusiveMin();
         }
         if (null !== $docObject->getMax()) {
             $docArray['maximum'] = $docObject->getMax();
-            $docArray['inclusive_maximum'] = $docObject->isInclusiveMax();
+            $docArray['inclusiveMaximum'] = $docObject->isInclusiveMax();
         }
 
         return $docArray;

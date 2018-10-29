@@ -3,6 +3,7 @@ namespace Tests\Technical\Domain\Model;
 
 use PHPUnit\Framework\TestCase;
 use Yoanm\JsonRpcServerDoc\Domain\Model\MethodDoc;
+use Yoanm\JsonRpcServerDoc\Domain\Model\Type\ObjectDoc;
 
 /**
  * @covers \Yoanm\JsonRpcServerDoc\Domain\Model\MethodDoc
@@ -11,6 +12,22 @@ use Yoanm\JsonRpcServerDoc\Domain\Model\MethodDoc;
  */
 class MethodDocTest extends TestCase
 {
+    /**
+     * @dataProvider provideMethodDocIdToNormalize
+     *
+     * @param string $id
+     * @param string $expectedId
+     */
+    public function testShouldSetParamDocAsRequired()
+    {
+        $doc = new MethodDoc('my-title');
+        $paramDoc = new ObjectDoc();
+
+        $this->assertFalse($paramDoc->isRequired());
+        $doc->setParamsDoc($paramDoc);
+        $this->assertTrue($paramDoc->isRequired());
+    }
+
     /**
      * @dataProvider provideMethodDocIdToNormalize
      *

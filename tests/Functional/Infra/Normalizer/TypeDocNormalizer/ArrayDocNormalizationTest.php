@@ -46,7 +46,7 @@ class ArrayDocNormalizationTest extends TestCase
             ],
             'doc with a description, a default, an example, required flag and not nullable' => [
                 'doc' => (new ArrayDoc())
-                    ->setRequired(true)
+                    ->setRequired()
                     ->setNullable(false)
                     ->setDescription('my-description')
                     ->setDefault([])
@@ -69,7 +69,7 @@ class ArrayDocNormalizationTest extends TestCase
                     'type' => 'array',
                     'nullable' => true,
                     'required' => false,
-                    'min_item' => 4,
+                    'minItem' => 4,
                 ],
             ],
             'doc with maximum item' => [
@@ -80,7 +80,7 @@ class ArrayDocNormalizationTest extends TestCase
                     'type' => 'array',
                     'nullable' => true,
                     'required' => false,
-                    'max_item' => 12,
+                    'maxItem' => 12,
                 ],
             ],
             'doc with mandatory siblings' => [
@@ -100,8 +100,8 @@ class ArrayDocNormalizationTest extends TestCase
                             'required' => false,
                         ]
                     ],
-                    'allow_extra' => true,
-                    'allow_missing' => true,
+                    'allowExtra' => true,
+                    'allowMissing' => true,
                 ],
             ],
             'doc with item validation' => [
@@ -129,7 +129,7 @@ class ArrayDocNormalizationTest extends TestCase
                     ->setDescription('my-description')
                     ->setDefault([])
                     ->setExample(['test'])
-                    ->setRequired(true)
+                    ->setRequired()
                     ->setNullable(false)
                 ,
                 'expected' => [
@@ -139,8 +139,8 @@ class ArrayDocNormalizationTest extends TestCase
                     'required' => true,
                     'default' => [],
                     'example' => ['test'],
-                    'min_item' => 4,
-                    'max_item' => 12,
+                    'minItem' => 4,
+                    'maxItem' => 12,
                     'siblings' => [
                         [
                             'type' => 'string',
@@ -148,8 +148,8 @@ class ArrayDocNormalizationTest extends TestCase
                             'required' => false,
                         ]
                     ],
-                    'allow_extra' => true,
-                    'allow_missing' => true,
+                    'allowExtra' => true,
+                    'allowMissing' => true,
                 ],
             ]
         ];

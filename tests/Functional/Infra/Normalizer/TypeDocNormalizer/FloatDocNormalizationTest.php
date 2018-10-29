@@ -45,7 +45,7 @@ class FloatDocNormalizationTest extends TestCase
             ],
             'doc with a description, a default, an example, required flag and not nullable' => [
                 'doc' => (new FloatDoc())
-                    ->setRequired(true)
+                    ->setRequired()
                     ->setNullable(false)
                     ->setDescription('my-description')
                     ->setDefault(14.24)
@@ -69,7 +69,7 @@ class FloatDocNormalizationTest extends TestCase
                     'nullable' => true,
                     'required' => false,
                     'minimum' => 3.6,
-                    'inclusive_minimum' => true,
+                    'inclusiveMinimum' => true,
                 ],
             ],
             'doc with max' => [
@@ -81,7 +81,7 @@ class FloatDocNormalizationTest extends TestCase
                     'nullable' => true,
                     'required' => false,
                     'maximum' => 5.2,
-                    'inclusive_maximum' => true,
+                    'inclusiveMaximum' => true,
                 ],
             ],
             'doc with exclusive min/max' => [
@@ -96,9 +96,9 @@ class FloatDocNormalizationTest extends TestCase
                     'nullable' => true,
                     'required' => false,
                     'minimum' => 3.6,
-                    'inclusive_minimum' => false,
+                    'inclusiveMinimum' => false,
                     'maximum' => 5.2,
-                    'inclusive_maximum' => false,
+                    'inclusiveMaximum' => false,
                 ],
             ],
             'full doc' => [
@@ -106,7 +106,7 @@ class FloatDocNormalizationTest extends TestCase
                     ->setDescription('my-description')
                     ->setDefault(14.24)
                     ->setExample(255.25)
-                    ->setRequired(true)
+                    ->setRequired()
                     ->setNullable(false)
                     ->setMin(3.6)
                     ->setInclusiveMin(false)
@@ -121,9 +121,9 @@ class FloatDocNormalizationTest extends TestCase
                     'default' => 14.24,
                     'example' => 255.25,
                     'minimum' => 3.6,
-                    'inclusive_minimum' => false,
+                    'inclusiveMinimum' => false,
                     'maximum' => 5.2,
-                    'inclusive_maximum' => false,
+                    'inclusiveMaximum' => false,
                 ],
             ]
         ];

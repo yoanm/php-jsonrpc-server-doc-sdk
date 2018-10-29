@@ -46,7 +46,7 @@ class ObjectDocNormalizationTest extends TestCase
             ],
             'doc with a description, a default, an example, required flag and not nullable' => [
                 'doc' => (new ObjectDoc())
-                    ->setRequired(true)
+                    ->setRequired()
                     ->setNullable(false)
                     ->setDescription('my-description')
                     ->setDefault([])
@@ -69,7 +69,7 @@ class ObjectDocNormalizationTest extends TestCase
                     'type' => 'object',
                     'nullable' => true,
                     'required' => false,
-                    'min_item' => 4,
+                    'minItem' => 4,
                 ],
             ],
             'doc with maximum item' => [
@@ -80,7 +80,7 @@ class ObjectDocNormalizationTest extends TestCase
                     'type' => 'object',
                     'nullable' => true,
                     'required' => false,
-                    'max_item' => 12,
+                    'maxItem' => 12,
                 ],
             ],
             'doc with mandatory siblings' => [
@@ -100,8 +100,8 @@ class ObjectDocNormalizationTest extends TestCase
                             'required' => false,
                         ]
                     ],
-                    'allow_extra' => true,
-                    'allow_missing' => true,
+                    'allowExtra' => true,
+                    'allowMissing' => true,
                 ],
             ],
             'full doc' => [
@@ -114,7 +114,7 @@ class ObjectDocNormalizationTest extends TestCase
                     ->setDescription('my-description')
                     ->setDefault([])
                     ->setExample(['sibling-key' => 'test'])
-                    ->setRequired(true)
+                    ->setRequired()
                     ->setNullable(false)
                 ,
                 'expected' => [
@@ -124,8 +124,8 @@ class ObjectDocNormalizationTest extends TestCase
                     'required' => true,
                     'default' => [],
                     'example' => ['sibling-key' => 'test'],
-                    'min_item' => 4,
-                    'max_item' => 12,
+                    'minItem' => 4,
+                    'maxItem' => 12,
                     'siblings' => [
                         'sibling-key' => [
                             'type' => 'string',
@@ -133,8 +133,8 @@ class ObjectDocNormalizationTest extends TestCase
                             'required' => false,
                         ]
                     ],
-                    'allow_extra' => true,
-                    'allow_missing' => true,
+                    'allowExtra' => true,
+                    'allowMissing' => true,
                 ],
             ]
         ];

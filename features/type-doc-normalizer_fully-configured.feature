@@ -113,8 +113,8 @@ Feature: TypeDocNormalizer
       "example": "type-b-example",
       "format": "type-b-format",
       "allowed_values": ["type-b-allowed-value-a", "type-b-allowed-value-b"],
-      "min_length": 2,
-      "max_length": 5
+      "minLength": 2,
+      "maxLength": 5
     }
     """
 
@@ -151,9 +151,9 @@ Feature: TypeDocNormalizer
       "example": 5,
       "allowed_values": [1, 2, 3, 4, 5],
       "minimum": 3,
-      "inclusive_minimum": false,
+      "inclusiveMinimum": false,
       "maximum": 6,
-      "inclusive_maximum": false
+      "inclusiveMaximum": false
     }
     """
 
@@ -190,9 +190,9 @@ Feature: TypeDocNormalizer
       "example": 5,
       "allowed_values": [1, 2, 3, 4, 5],
       "minimum": 3,
-      "inclusive_minimum": false,
+      "inclusiveMinimum": false,
       "maximum": 6,
-      "inclusive_maximum": false
+      "inclusiveMaximum": false
     }
     """
 
@@ -227,9 +227,9 @@ Feature: TypeDocNormalizer
       "example": 5.8,
       "allowed_values": [1, 2.4, 5.8],
       "minimum": 3,
-      "inclusive_minimum": false,
+      "inclusiveMinimum": false,
       "maximum": 6,
-      "inclusive_maximum": false
+      "inclusiveMaximum": false
     }
     """
 
@@ -263,10 +263,10 @@ Feature: TypeDocNormalizer
       "default": ["default"],
       "example": ["example"],
       "allowed_values": [["type-b-allowed-value-a"], ["type-b-allowed-value-b"]],
-      "min_item": 2,
-      "max_item": 8,
-      "allow_extra": true,
-      "allow_missing": true
+      "minItem": 2,
+      "maxItem": 8,
+      "allowExtra": true,
+      "allowMissing": true
     }
     """
 
@@ -306,10 +306,10 @@ Feature: TypeDocNormalizer
         "required": false
       },
       "allowed_values": [["type-b-allowed-value-a"], ["type-b-allowed-value-b"]],
-      "min_item": 2,
-      "max_item": 8,
-      "allow_extra": true,
-      "allow_missing": true
+      "minItem": 2,
+      "maxItem": 8,
+      "allowExtra": true,
+      "allowMissing": true
     }
     """
 
@@ -343,9 +343,9 @@ Feature: TypeDocNormalizer
       "default": ["default"],
       "example": ["example"],
       "allowed_values": [["type-b-allowed-value-a"], ["type-b-allowed-value-b"]],
-      "min_item": 2,
-      "max_item": 8,
-      "allow_extra": true,
-      "allow_missing": true
+      "minItem": 2,
+      "maxItem": 8,
+      "allowExtra": true,
+      "allowMissing": true
     }
     """
