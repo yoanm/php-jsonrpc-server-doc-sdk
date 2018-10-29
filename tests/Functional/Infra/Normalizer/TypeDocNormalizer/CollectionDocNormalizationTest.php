@@ -46,7 +46,7 @@ class CollectionDocNormalizationTest extends TestCase
             ],
             'doc with a description, a default, an example, required flag and not nullable' => [
                 'doc' => (new CollectionDoc())
-                    ->setRequired(true)
+                    ->setRequired()
                     ->setNullable(false)
                     ->setDescription('my-description')
                     ->setDefault([])
@@ -100,8 +100,8 @@ class CollectionDocNormalizationTest extends TestCase
                             'required' => false,
                         ]
                     ],
-                    'allow_extra' => true,
-                    'allow_missing' => true,
+                    'allowExtra' => true,
+                    'allowMissing' => true,
                 ],
             ],
             'full doc' => [
@@ -114,7 +114,7 @@ class CollectionDocNormalizationTest extends TestCase
                     ->setDescription('my-description')
                     ->setDefault([])
                     ->setExample(['test'])
-                    ->setRequired(true)
+                    ->setRequired()
                     ->setNullable(false)
                 ,
                 'expected' => [
@@ -133,8 +133,8 @@ class CollectionDocNormalizationTest extends TestCase
                             'required' => false,
                         ]
                     ],
-                    'allow_extra' => true,
-                    'allow_missing' => true,
+                    'allowExtra' => true,
+                    'allowMissing' => true,
                 ],
             ]
         ];

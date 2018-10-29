@@ -10,14 +10,14 @@ class ErrorDoc
 {
     /** @var string */
     private $title;
-    /** @var string */
-    private $identifier;
     /** @var int */
     private $code;
     /** @var string|null */
     private $message = null;
     /** @var TypeDoc|null */
     private $dataDoc = null;
+    /** @var string */
+    private $identifier;
 
     /**
      * @param string       $title
@@ -39,6 +39,16 @@ class ErrorDoc
         $this->dataDoc = $dataDoc;
         // Use title and code as id if not provided
         $this->setIdentifier($identifier ?? $title.((string)$code));
+    }
+
+    /**
+     * @param string $message
+     */
+    public function setMessage(string $message): ErrorDoc
+    {
+        $this->message = $message;
+
+        return $this;
     }
 
     /**

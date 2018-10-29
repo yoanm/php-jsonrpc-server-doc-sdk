@@ -45,7 +45,7 @@ class IntegerDocNormalizationTest extends TestCase
             ],
             'doc with a description, a default, an example, required flag and not nullable' => [
                 'doc' => (new IntegerDoc())
-                    ->setRequired(true)
+                    ->setRequired()
                     ->setNullable(false)
                     ->setDescription('my-description')
                     ->setDefault(24)
@@ -110,7 +110,7 @@ class IntegerDocNormalizationTest extends TestCase
                     ->setDescription('my-description')
                     ->setDefault(24)
                     ->setExample(12)
-                    ->setRequired(true)
+                    ->setRequired()
                     ->setNullable(false)
                 ,
                 'expected' => [

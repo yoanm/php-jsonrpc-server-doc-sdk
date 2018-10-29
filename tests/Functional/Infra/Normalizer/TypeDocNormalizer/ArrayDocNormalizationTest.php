@@ -36,7 +36,7 @@ class ArrayDocNormalizationTest extends TestCase
     public function provideArrayDocToNormalize()
     {
         return [
-            /*'basic doc' => [
+            'basic doc' => [
                 'doc' => new ArrayDoc(),
                 'expected' => [
                     'type' => 'array',
@@ -46,7 +46,7 @@ class ArrayDocNormalizationTest extends TestCase
             ],
             'doc with a description, a default, an example, required flag and not nullable' => [
                 'doc' => (new ArrayDoc())
-                    ->setRequired(true)
+                    ->setRequired()
                     ->setNullable(false)
                     ->setDescription('my-description')
                     ->setDefault([])
@@ -100,10 +100,10 @@ class ArrayDocNormalizationTest extends TestCase
                             'required' => false,
                         ]
                     ],
-                    'allow_extra' => true,
-                    'allow_missing' => true,
+                    'allowExtra' => true,
+                    'allowMissing' => true,
                 ],
-            ],*/
+            ],
             'doc with item validation' => [
                 'doc' => (new ArrayDoc())
                     ->setItemValidation(new StringDoc())
@@ -129,7 +129,7 @@ class ArrayDocNormalizationTest extends TestCase
                     ->setDescription('my-description')
                     ->setDefault([])
                     ->setExample(['test'])
-                    ->setRequired(true)
+                    ->setRequired()
                     ->setNullable(false)
                 ,
                 'expected' => [
@@ -148,8 +148,8 @@ class ArrayDocNormalizationTest extends TestCase
                             'required' => false,
                         ]
                     ],
-                    'allow_extra' => true,
-                    'allow_missing' => true,
+                    'allowExtra' => true,
+                    'allowMissing' => true,
                 ],
             ]
         ];

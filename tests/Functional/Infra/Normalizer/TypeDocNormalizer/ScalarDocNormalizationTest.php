@@ -45,7 +45,7 @@ class ScalarDocNormalizationTest extends TestCase
             ],
             'doc with a description, a default, an example, required flag and not nullable' => [
                 'doc' => (new ScalarDoc())
-                    ->setRequired(true)
+                    ->setRequired()
                     ->setNullable(false)
                     ->setDescription('my-description')
                     ->setDefault(true)
@@ -65,7 +65,7 @@ class ScalarDocNormalizationTest extends TestCase
                     ->setDescription('my-description')
                     ->setDefault(true)
                     ->setExample(false)
-                    ->setRequired(true)
+                    ->setRequired()
                     ->setNullable(false)
                 ,
                 'expected' => [

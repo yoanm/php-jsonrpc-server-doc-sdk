@@ -45,7 +45,7 @@ class FloatDocNormalizationTest extends TestCase
             ],
             'doc with a description, a default, an example, required flag and not nullable' => [
                 'doc' => (new FloatDoc())
-                    ->setRequired(true)
+                    ->setRequired()
                     ->setNullable(false)
                     ->setDescription('my-description')
                     ->setDefault(14.24)
@@ -106,7 +106,7 @@ class FloatDocNormalizationTest extends TestCase
                     ->setDescription('my-description')
                     ->setDefault(14.24)
                     ->setExample(255.25)
-                    ->setRequired(true)
+                    ->setRequired()
                     ->setNullable(false)
                     ->setMin(3.6)
                     ->setInclusiveMin(false)

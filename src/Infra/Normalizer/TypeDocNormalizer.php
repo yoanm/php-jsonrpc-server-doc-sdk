@@ -81,10 +81,10 @@ class TypeDocNormalizer
                 $docArray['siblings'] = $siblingDocList;
             }
             if (true === $docObject->isAllowExtraSibling()) {
-                $docArray['allow_extra'] = $docObject->isAllowExtraSibling();
+                $docArray['allowExtra'] = $docObject->isAllowExtraSibling();
             }
             if (true === $docObject->isAllowMissingSibling()) {
-                $docArray['allow_missing'] = $docObject->isAllowMissingSibling();
+                $docArray['allowMissing'] = $docObject->isAllowMissingSibling();
             }
         }
 
@@ -120,7 +120,7 @@ class TypeDocNormalizer
     {
         $docArray = [];
         foreach ($docObject->getAllowedValueList() as $value) {
-            $docArray['allowed_values'][] = $value;
+            $docArray['allowedValues'][] = $value;
         }
 
         return $docArray;

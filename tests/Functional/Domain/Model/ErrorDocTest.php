@@ -70,4 +70,13 @@ class ErrorDocTest extends TestCase
         $doc->setDataDoc($dataDocB);
         $this->assertSame($dataDocB, $doc->getDataDoc());
     }
+
+    public function testShouldAllowMessageUpdate()
+    {
+        $message = 'my-message';
+        $doc = new ErrorDoc('my-title', -235);
+        $this->assertNull($doc->getMessage());
+        $doc->setMessage($message);
+        $this->assertSame($message, $doc->getMessage());
+    }
 }
