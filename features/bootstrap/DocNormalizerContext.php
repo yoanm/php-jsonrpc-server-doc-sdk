@@ -22,7 +22,7 @@ use Yoanm\JsonRpcServerDoc\Infra\Normalizer\TypeDocNormalizer;
 
 class DocNormalizerContext extends AbstractContext
 {
-    /** @var HttpServerDoc|null */
+    /** @var HttpServerDoc|ServerDoc|null */
     private $serverDoc = null;
     /** @var ErrorDoc|null */
     private $lastErrorDoc = null;
