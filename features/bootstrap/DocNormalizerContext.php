@@ -22,14 +22,6 @@ use Yoanm\JsonRpcServerDoc\Infra\Normalizer\TypeDocNormalizer;
 
 class DocNormalizerContext extends AbstractContext
 {
-    const DEFINITIONS_KEY = 'definitions';
-    const TAGS_KEY = 'tags';
-    const PATHS_KEY = 'paths';
-
-    const DUMMY_ERROR_NAME_FOR_TYPEDOC = 'DummyErrorForTypeDoc';
-    const DUMMY_ERROR_KEY_FOR_TYPEDOC = 'Error-DummyErrorForTypeDoc123';
-
-
     /** @var HttpServerDoc|null */
     private $serverDoc = null;
     /** @var ErrorDoc|null */
@@ -222,15 +214,7 @@ class DocNormalizerContext extends AbstractContext
      */
     public function whenINormalizeMethod()
     {
-        $typeDocNormalizer = new TypeDocNormalizer();
-        $normalizer = new MethodDocNormalizer(
-            $typeDocNormalizer,
-            new ErrorDocNormalizer(
-                $typeDocNormalizer
-            )
-        );
-
-        $this->lastNormalizedOutput = $normalizer->normalize($this->lastMethodDoc);
+        $this->lastNormalizedOutput = $this->createMethodDocNormalizer()->normalize($this->lastMethodDoc);
     }
 
     /**
@@ -238,8 +222,7 @@ class DocNormalizerContext extends AbstractContext
      */
     public function whenINormalizeTag()
     {
-        $normalizer = new TagDocNormalizer();
-        $this->lastNormalizedOutput = $normalizer->normalize($this->lastTagDoc);
+        $this->lastNormalizedOutput = $this->createTagDocNormalizer()->normalize($this->lastTagDoc);
     }
 
     /**
@@ -247,8 +230,7 @@ class DocNormalizerContext extends AbstractContext
      */
     public function whenINormalizeType()
     {
-        $normalizer = new TypeDocNormalizer();
-        $this->lastNormalizedOutput = $normalizer->normalize($this->lastTypeDoc);
+        $this->lastNormalizedOutput = $this->createTypeDocNormalizer()->normalize($this->lastTypeDoc);
     }
 
     /**
@@ -256,11 +238,7 @@ class DocNormalizerContext extends AbstractContext
      */
     public function whenINormalizeError()
     {
-        $normalizer = new ErrorDocNormalizer(
-            new TypeDocNormalizer()
-        );
-
-        $this->lastNormalizedOutput = $normalizer->normalize($this->lastErrorDoc);
+        $this->lastNormalizedOutput = $this->createErrorDocNormalizer()->normalize($this->lastErrorDoc);
     }
 
     /**
@@ -268,24 +246,7 @@ class DocNormalizerContext extends AbstractContext
      */
     public function whenINormalizeServer()
     {
-        $typeDocNormalizer = new TypeDocNormalizer();
-        $serverDocNormalizer = new MethodDocNormalizer(
-            $typeDocNormalizer,
-            new ErrorDocNormalizer(
-                $typeDocNormalizer
-            )
-        );
-        $tagDocNormalizer = new TagDocNormalizer();
-        $errorDocNormalizer = new ErrorDocNormalizer(
-            $typeDocNormalizer
-        );
-        $normalizer = new ServerDocNormalizer(
-            $serverDocNormalizer,
-            $tagDocNormalizer,
-            $errorDocNormalizer
-        );
-
-        $this->lastNormalizedOutput = $normalizer->normalize($this->serverDoc);
+        $this->lastNormalizedOutput = $this->createServerDocNormalizer()->normalize($this->serverDoc);
     }
 
     /**
@@ -293,27 +254,12 @@ class DocNormalizerContext extends AbstractContext
      */
     public function whenINormalizeHttServer()
     {
-        $typeDocNormalizer = new TypeDocNormalizer();
-        $serverDocNormalizer = new MethodDocNormalizer(
-            $typeDocNormalizer,
-            new ErrorDocNormalizer(
-                $typeDocNormalizer
+        $this->lastNormalizedOutput = (
+            new HttpServerDocNormalizer(
+                $this->createServerDocNormalizer()
             )
-        );
-        $tagDocNormalizer = new TagDocNormalizer();
-        $errorDocNormalizer = new ErrorDocNormalizer(
-            $typeDocNormalizer
-        );
-        $serverDocNormalizer = new ServerDocNormalizer(
-            $serverDocNormalizer,
-            $tagDocNormalizer,
-            $errorDocNormalizer
-        );
-        $normalizer = new HttpServerDocNormalizer(
-            $serverDocNormalizer
-        );
-
-        $this->lastNormalizedOutput = $normalizer->normalize($this->serverDoc);
+        )
+            ->normalize($this->serverDoc);
     }
 
     /**
@@ -326,208 +272,73 @@ class DocNormalizerContext extends AbstractContext
      */
     public function thenIShouldHaveFollowingNormalizedDoc(PyStringNode $data)
     {
-        print_r(json_encode($this->lastNormalizedOutput)."\n");
         Assert::assertSame(
             $this->jsonDecode($data->getRaw()),
             $this->lastNormalizedOutput
         );
     }
 
-    /** DEFINITIONS */
-
     /**
-     * @Then I should have a normalized definition named :definitionName
+     * @return TypeDocNormalizer
      */
-    public function thenIShouldHaveDefinitionNamed($definitionName)
+    private function createTypeDocNormalizer(): TypeDocNormalizer
     {
-        Assert::assertArrayHasKey(self::DEFINITIONS_KEY, $this->lastNormalizedOutput);
-        Assert::assertArrayHasKey($definitionName, $this->lastNormalizedOutput[self::DEFINITIONS_KEY]);
+        return new TypeDocNormalizer();
     }
 
     /**
-     * @Then normalized definition named :definitionName should be the following:
+     * @return TagDocNormalizer
      */
-    public function thenNormalizedDefinitionNamedShouldBeTheFollowing($definitionName, PyStringNode $data)
+    private function createTagDocNormalizer(): TagDocNormalizer
     {
-        $this->thenIShouldHaveDefinitionNamed($definitionName);
+        return new TagDocNormalizer();
+    }
 
-        print_r(json_encode($this->lastNormalizedOutput));
+    /**
+     * @return MethodDocNormalizer
+     */
+    private function createMethodDocNormalizer(TypeDocNormalizer $typeDocNormalizer = null): MethodDocNormalizer
+    {
+        $typeDocNormalizer = $typeDocNormalizer ?? $this->createTypeDocNormalizer();
 
-        Assert::assertSame(
-            $this->jsonDecode($data->getRaw()),
-            $this->lastNormalizedOutput[self::DEFINITIONS_KEY][$definitionName]
+        return new MethodDocNormalizer(
+            $typeDocNormalizer,
+            $this->createErrorDocNormalizer($typeDocNormalizer)
         );
     }
 
     /**
-     * @Then normalized definition named :definitionName should have a key :key containing:
-     */
-    public function thenNormalizedDefinitionNamedShouldHaveAKeyContaining($definitionName, $key, PyStringNode $data)
-    {
-        $this->thenIShouldHaveDefinitionNamed($definitionName);
-
-        Assert::assertArrayHasKey($key, $this->lastNormalizedOutput[self::DEFINITIONS_KEY][$definitionName]);
-
-        Assert::assertContains(
-            $this->jsonDecode($data->getRaw()),
-            $this->lastNormalizedOutput[self::DEFINITIONS_KEY][$definitionName][$key],
-            sprintf(
-                'Failed asserting that key "%s" under "%s" contains "%s"',
-                $key,
-                self::DEFINITIONS_KEY,
-                $data->getRaw()
-            )
-        );
-    }
-
-    /** END - DEFINITIONS */
-
-    /** TAGS */
-
-    /**
-     * @Then I should have a normalized tag named :tagName
-     * @Then I should have a normalized tag named :tagName with description :description
-     */
-    public function thenIShouldHaveTagNamed($tagName, $description = null)
-    {
-        Assert::assertArrayHasKey(self::TAGS_KEY, $this->lastNormalizedOutput);
-
-        $expected = ['name' => $tagName];
-        if (null !== $description) {
-            $expected['description'] = $description;
-        }
-        Assert::assertContains($expected, $this->lastNormalizedOutput[self::TAGS_KEY]);
-    }
-
-    /** END - TAGS */
-
-    /** TYPES */
-
-    /**
-     * @Then I should have the following TypeDoc:
-     */
-    public function thenIShouldHaveTheFollowingTypeDoc(PyStringNode $data, $isRequired = false)
-    {
-        $this->thenIShouldHaveDefinitionNamed(self::DUMMY_ERROR_KEY_FOR_TYPEDOC);
-        $dummyError = $this->lastNormalizedOutput[self::DEFINITIONS_KEY][self::DUMMY_ERROR_KEY_FOR_TYPEDOC];
-        $dummyErrorShape = $dummyError['allOf'][1];
-        var_dump($dummyErrorShape);
-
-        if (true === $isRequired) {
-            Assert::assertContains('data', $dummyErrorShape['required']);
-        } else {
-            Assert::assertNotContains('data', $dummyErrorShape['required']);
-        }
-        // Take the second arguments of 'allOf' (where data doc is defined)
-        $typeDoc = $dummyErrorShape['properties']['data'];
-        Assert::assertSame(
-            $this->jsonDecode($data->getRaw()),
-            $typeDoc
-        );
-    }
-
-    /**
-     * @Then I should have the following required TypeDoc:
-     */
-    public function thenIShouldHaveTheFollowingRequiredTypeDoc(PyStringNode $data)
-    {
-        $this->thenIShouldHaveTheFollowingTypeDoc($data, true);
-    }
-
-    /** END - TYPES */
-
-    /** PATHS */
-
-    /**
-     * @Then I should have a :httpMethod path named :pathName
-     * @Then I should have a :httpMethod path named :pathName like following:
-     */
-    public function thenIShouldHaveAPathNamed($httpMethod, $pathName, PyStringNode $data = null)
-    {
-        Assert::assertArrayHasKey(self::PATHS_KEY, $this->lastNormalizedOutput);
-        Assert::assertArrayHasKey($pathName, $this->lastNormalizedOutput[self::PATHS_KEY]);
-
-        Assert::assertArrayHasKey(
-            strtolower($httpMethod),
-            $this->lastNormalizedOutput[self::PATHS_KEY][$pathName],
-            sprintf(
-                'Failed asserting that the path "%s" have "%s" http method',
-                $pathName,
-                $httpMethod
-            )
-        );
-
-        if (null !== $data) {
-            $operation = $this->extractPath($httpMethod, $pathName);
-            $decodedExpected = $this->jsonDecode($data->getRaw());
-
-            Assert::assertSame($decodedExpected, $operation);
-        }
-    }
-
-    /**
-     * @Then I should have a :httpMethod path named :pathName containing the following:
-     */
-    public function thenIShouldHaveAPathNamedLikeFollowing($httpMethod, $pathName, PyStringNode $data)
-    {
-        $this->thenIShouldHaveAPathNamed($httpMethod, $pathName);
-
-        $operation = $this->extractPath($httpMethod, $pathName);
-        $decodedExpected = $this->jsonDecode($data->getRaw());
-
-        print_r(json_encode($operation)."\n");
-
-        foreach ($decodedExpected as $expectedKey => $expectedContent) {
-            Assert::assertArrayHasKey($expectedKey, $operation);
-            Assert::assertSame($expectedContent, $operation[$expectedKey]);
-        }
-    }
-
-    /**
-     * @Then :httpMethod path named :pathName should have the following parameters:
-     */
-    public function thenPathNamedShouldHaveTheFollowingParameters($httpMethod, $pathName, PyStringNode $data)
-    {
-        $this->thenIShouldHaveAPathNamed($httpMethod, $pathName);
-
-        $operation = $this->extractPath($httpMethod, $pathName);
-        $operationParameters = $operation['parameters'][0]['schema']['allOf'];
-        $decodedExpected = $this->jsonDecode($data->getRaw());
-
-        print_r(json_encode($operation)."\n");
-
-        Assert::assertContains($decodedExpected, $operationParameters);
-    }
-
-    /**
-     * Error and response result are stored under the same key
+     * @param $typeDocNormalizer
      *
-     * @Then :httpMethod path named :pathName should have the following response:
-     * @Then :httpMethod path named :pathName should have the following error:
+     * @return ErrorDocNormalizer
      */
-    public function thenPathNamedShouldHaveTheFollowingResponse($httpMethod, $pathName, PyStringNode $data)
+    private function createErrorDocNormalizer(TypeDocNormalizer $typeDocNormalizer = null): ErrorDocNormalizer
     {
-        $this->thenIShouldHaveAPathNamed($httpMethod, $pathName);
+        $typeDocNormalizer = $typeDocNormalizer ?? $this->createTypeDocNormalizer();
 
-        $operation = $this->extractPath($httpMethod, $pathName);
-        $operationResponseSchemaList = $operation['responses']['200']['schema']['allOf'];
-        $decodedExpected = $this->jsonDecode($data->getRaw());
-
-        print_r(json_encode($this->lastNormalizedOutput));
-
-        Assert::assertContains($decodedExpected, $operationResponseSchemaList);
+        return new ErrorDocNormalizer(
+            $typeDocNormalizer
+        );
     }
 
     /**
-     * @param $httpMethod
-     * @param $pathName
+     * @param $methodDocNormalizer
+     * @param $tagDocNormalizer
+     * @param $errorDocNormalizer
      *
-     * @return mixed
+     * @return ServerDocNormalizer
      */
-    private function extractPath($httpMethod, $pathName)
+    private function createServerDocNormalizer(): ServerDocNormalizer
     {
-        return $this->lastNormalizedOutput[self::PATHS_KEY][$pathName][strtolower($httpMethod)];
-    }
+        $typeDocNormalizer = $this->createTypeDocNormalizer();
+        $tagDocNormalizer = $this->createTagDocNormalizer();
+        $methodDocNormalizer = $this->createMethodDocNormalizer($typeDocNormalizer);
+        $errorDocNormalizer = $this->createErrorDocNormalizer($typeDocNormalizer);
 
-    /** END - PATHS */
+        return new ServerDocNormalizer(
+            $methodDocNormalizer,
+            $tagDocNormalizer,
+            $errorDocNormalizer
+        );
+    }
 }
