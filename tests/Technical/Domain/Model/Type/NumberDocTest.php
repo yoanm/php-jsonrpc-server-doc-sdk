@@ -13,6 +13,8 @@ class NumberDocTest extends TestCase
 {
     /**
      * @dataProvider provideInvalidDocMinMaxValue
+     *
+     * @param mixed $value
      */
     public function testShouldThrowAnExceptionIfMinIs($value)
     {
@@ -24,6 +26,8 @@ class NumberDocTest extends TestCase
 
     /**
      * @dataProvider provideValidDocMinMaxValue
+     *
+     * @param mixed $value
      */
     public function testShouldManageFloatAndIntegerMin($value)
     {
@@ -34,6 +38,8 @@ class NumberDocTest extends TestCase
 
     /**
      * @dataProvider provideInvalidDocMinMaxValue
+     *
+     * @param mixed $value
      */
     public function testShouldThrowAnExceptionIfMaxIs($value)
     {
@@ -45,6 +51,8 @@ class NumberDocTest extends TestCase
 
     /**
      * @dataProvider provideValidDocMinMaxValue
+     *
+     * @param mixed $value
      */
     public function testShouldManageFloatAndIntegerMax($value)
     {

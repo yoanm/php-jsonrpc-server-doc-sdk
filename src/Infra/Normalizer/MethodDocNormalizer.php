@@ -14,7 +14,8 @@ class MethodDocNormalizer
     private $errorDocNormalizer;
 
     /**
-     * @param TypeDocNormalizer $typeDocNormalizer
+     * @param TypeDocNormalizer  $typeDocNormalizer
+     * @param ErrorDocNormalizer $errorDocNormalizer
      */
     public function __construct(
         TypeDocNormalizer $typeDocNormalizer,
@@ -28,6 +29,8 @@ class MethodDocNormalizer
      * @param MethodDoc $doc
      *
      * @return array
+     *
+     * @throws \ReflectionException
      */
     public function normalize(MethodDoc $doc) : array
     {
@@ -58,7 +61,7 @@ class MethodDocNormalizer
             + $docTags
             + $paramsSchema
             + $responseSchema
-            + $this->appendErrorsSchema($doc);
+            + $this->appendErrorsSchema($doc)
         ;
     }
 

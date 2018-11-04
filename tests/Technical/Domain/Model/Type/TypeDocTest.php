@@ -13,6 +13,8 @@ class TypeDocTest extends TestCase
 {
     /**
      * @dataProvider provideInvalidDocNameValue
+     *
+     * @param mixed $name
      */
     public function testShouldThrowAnExceptionIfNameIs($name)
     {

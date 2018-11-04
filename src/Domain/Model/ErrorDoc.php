@@ -43,6 +43,8 @@ class ErrorDoc
 
     /**
      * @param string $message
+     *
+     * @return ErrorDoc
      */
     public function setMessage(string $message): ErrorDoc
     {

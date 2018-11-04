@@ -6,7 +6,6 @@ use Prophecy\Prophecy\ObjectProphecy;
 use Yoanm\JsonRpcServerDoc\Domain\Model\ErrorDoc;
 use Yoanm\JsonRpcServerDoc\Domain\Model\MethodDoc;
 use Yoanm\JsonRpcServerDoc\Domain\Model\Type\ObjectDoc;
-use Yoanm\JsonRpcServerDoc\Domain\Model\Type\StringDoc;
 use Yoanm\JsonRpcServerDoc\Infra\Normalizer\ErrorDocNormalizer;
 use Yoanm\JsonRpcServerDoc\Infra\Normalizer\MethodDocNormalizer;
 use Yoanm\JsonRpcServerDoc\Infra\Normalizer\TypeDocNormalizer;

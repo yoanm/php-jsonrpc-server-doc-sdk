@@ -2,10 +2,6 @@
 namespace Tests\Functional\BehatContext;
 
 use Behat\Behat\Context\Context;
-use Behat\Gherkin\Node\PyStringNode;
-use PHPUnit\Framework\Assert;
-use Yoanm\JsonRpcServerDoc\Domain\Model\Type\TypeDoc;
-use Yoanm\JsonRpcServerDoc\Infra\Normalizer\TypeDocNormalizer;
 
 class AbstractContext implements Context
 {
@@ -26,8 +22,6 @@ class AbstractContext implements Context
     /**
      * @param object $object
      * @param array  $decodedMethodCalls
-     *
-     * @return mixed
      */
     protected function callMethods($object, array $decodedMethodCalls)
     {
