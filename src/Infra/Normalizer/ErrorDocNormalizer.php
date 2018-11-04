@@ -23,6 +23,8 @@ class ErrorDocNormalizer
      * @param ErrorDoc $errorDoc
      *
      * @return array
+     *
+     * @throws \ReflectionException
      */
     public function normalize(ErrorDoc $errorDoc) : array
     {

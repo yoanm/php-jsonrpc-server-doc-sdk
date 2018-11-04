@@ -18,6 +18,7 @@ class ServerDocNormalizer
     /**
      * @param MethodDocNormalizer $methodDocNormalizer
      * @param TagDocNormalizer    $tagDocNormalizer
+     * @param ErrorDocNormalizer  $errorDocNormalizer
      */
     public function __construct(
         MethodDocNormalizer $methodDocNormalizer,

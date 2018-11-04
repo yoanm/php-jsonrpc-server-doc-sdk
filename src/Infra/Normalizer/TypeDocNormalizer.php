@@ -17,6 +17,8 @@ class TypeDocNormalizer
      * @param TypeDoc $docObject
      *
      * @return array
+     *
+     * @throws \ReflectionException
      */
     public function normalize(TypeDoc $docObject) : array
     {
@@ -36,10 +38,13 @@ class TypeDocNormalizer
     }
 
     /**
-     * @param string $type
+     * @param TypeDoc $docObject
+     *
      * @return string
+     *
+     * @throws \ReflectionException
      */
-    protected function normalizeSchemaType(TypeDoc $docObject)
+    protected function normalizeSchemaType(TypeDoc $docObject) : string
     {
         $type = str_replace('Doc', '', lcfirst((new \ReflectionClass($docObject))->getShortName()));
 
@@ -71,6 +76,8 @@ class TypeDocNormalizer
      * @param TypeDoc $docObject
      *
      * @return array
+     *
+     * @throws \ReflectionException
      */
     protected function appendCollectionDoc(TypeDoc $docObject) : array
     {
@@ -95,6 +102,8 @@ class TypeDocNormalizer
      * @param TypeDoc $docObject
      *
      * @return array
+     *
+     * @throws \ReflectionException
      */
     protected function appendMisc(TypeDoc $docObject) : array
     {
@@ -130,6 +139,8 @@ class TypeDocNormalizer
      * @param CollectionDoc $docObject
      *
      * @return array
+     *
+     * @throws \ReflectionException
      */
     protected function getSiblingDocList(CollectionDoc $docObject) : array
     {

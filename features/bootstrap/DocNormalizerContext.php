@@ -322,10 +322,6 @@ class DocNormalizerContext extends AbstractContext
     }
 
     /**
-     * @param $methodDocNormalizer
-     * @param $tagDocNormalizer
-     * @param $errorDocNormalizer
-     *
      * @return ServerDocNormalizer
      */
     private function createServerDocNormalizer(): ServerDocNormalizer

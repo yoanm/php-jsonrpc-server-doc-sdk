@@ -12,12 +12,6 @@ use Yoanm\JsonRpcServerDoc\Domain\Model\Type\ObjectDoc;
  */
 class MethodDocTest extends TestCase
 {
-    /**
-     * @dataProvider provideMethodDocIdToNormalize
-     *
-     * @param string $id
-     * @param string $expectedId
-     */
     public function testShouldSetParamDocAsRequired()
     {
         $doc = new MethodDoc('my-title');
