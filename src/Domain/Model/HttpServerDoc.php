@@ -18,9 +18,9 @@ class HttpServerDoc extends ServerDoc
     /**
      * @param string $endpoint
      *
-     * @return HttpServerDoc
+     * @return self
      */
-    public function setEndpoint(string $endpoint) : HttpServerDoc
+    public function setEndpoint(string $endpoint) : self
     {
         $this->endpoint = $endpoint;
 
@@ -30,9 +30,9 @@ class HttpServerDoc extends ServerDoc
     /**
      * @param string $host
      *
-     * @return HttpServerDoc
+     * @return self
      */
-    public function setHost(string $host) : HttpServerDoc
+    public function setHost(string $host) : self
     {
         $this->host = $host;
 
@@ -42,9 +42,9 @@ class HttpServerDoc extends ServerDoc
     /**
      * @param string $basePath
      *
-     * @return HttpServerDoc
+     * @return self
      */
-    public function setBasePath(string $basePath) : HttpServerDoc
+    public function setBasePath(string $basePath) : self
     {
         $this->basePath = $basePath;
 
@@ -54,9 +54,9 @@ class HttpServerDoc extends ServerDoc
     /**
      * @param string[] $schemeList
      *
-     * @return HttpServerDoc
+     * @return self
      */
-    public function setSchemeList(array $schemeList) : HttpServerDoc
+    public function setSchemeList(array $schemeList) : self
     {
         $this->schemeList = $schemeList;
 

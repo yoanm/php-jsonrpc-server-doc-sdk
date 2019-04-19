@@ -19,9 +19,9 @@ class NumberDoc extends ScalarDoc
     /**
      * @param int|float $min
      *
-     * @return NumberDoc
+     * @return self
      */
-    public function setMin($min) : NumberDoc
+    public function setMin($min) : self
     {
         if (null === $min || (!is_float($min) && !is_int($min))) {
             throw new \InvalidArgumentException('min must be either a float or an integer.');
@@ -35,9 +35,9 @@ class NumberDoc extends ScalarDoc
     /**
      * @param int|float $max
      *
-     * @return NumberDoc
+     * @return self
      */
-    public function setMax($max) : NumberDoc
+    public function setMax($max) : self
     {
         if (null === $max || (!is_float($max) && !is_int($max))) {
             throw new \InvalidArgumentException('max must be either a float or an integer.');
@@ -51,9 +51,9 @@ class NumberDoc extends ScalarDoc
     /**
      * @param bool $inclusiveMax
      *
-     * @return NumberDoc
+     * @return self
      */
-    public function setInclusiveMax(bool $inclusiveMax) : NumberDoc
+    public function setInclusiveMax(bool $inclusiveMax) : self
     {
         $this->inclusiveMax = $inclusiveMax;
 
@@ -63,9 +63,9 @@ class NumberDoc extends ScalarDoc
     /**
      * @param bool $inclusiveMin
      *
-     * @return NumberDoc
+     * @return self
      */
-    public function setInclusiveMin(bool $inclusiveMin) : NumberDoc
+    public function setInclusiveMin(bool $inclusiveMin) : self
     {
         $this->inclusiveMin = $inclusiveMin;
 

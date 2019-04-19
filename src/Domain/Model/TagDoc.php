@@ -22,9 +22,9 @@ class TagDoc
     /**
      * @param string $description
      *
-     * @return TagDoc
+     * @return self
      */
-    public function setDescription(string $description) : TagDoc
+    public function setDescription(string $description) : self
     {
         $this->description = $description;
 

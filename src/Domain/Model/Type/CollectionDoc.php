@@ -21,9 +21,9 @@ class CollectionDoc extends TypeDoc
     /**
      * @param TypeDoc $doc
      *
-     * @return CollectionDoc
+     * @return self
      */
-    public function addSibling(TypeDoc $doc) : CollectionDoc
+    public function addSibling(TypeDoc $doc) : self
     {
         $this->siblingList[] = $doc;
 
@@ -33,9 +33,9 @@ class CollectionDoc extends TypeDoc
     /**
      * @param int $minItem
      *
-     * @return CollectionDoc
+     * @return self
      */
-    public function setMinItem(int $minItem) : CollectionDoc
+    public function setMinItem(int $minItem) : self
     {
         $this->minItem = $minItem;
 
@@ -45,9 +45,9 @@ class CollectionDoc extends TypeDoc
     /**
      * @param int $maxItem
      *
-     * @return CollectionDoc
+     * @return self
      */
-    public function setMaxItem(int $maxItem) : CollectionDoc
+    public function setMaxItem(int $maxItem) : self
     {
         $this->maxItem = $maxItem;
 
@@ -57,9 +57,9 @@ class CollectionDoc extends TypeDoc
     /**
      * @param bool $allowExtraSibling
      *
-     * @return CollectionDoc
+     * @return self
      */
-    public function setAllowExtraSibling(bool $allowExtraSibling) : CollectionDoc
+    public function setAllowExtraSibling(bool $allowExtraSibling) : self
     {
         $this->allowExtraSibling = $allowExtraSibling;
 
@@ -69,9 +69,9 @@ class CollectionDoc extends TypeDoc
     /**
      * @param bool $allowMissingSibling
      *
-     * @return CollectionDoc
+     * @return self
      */
-    public function setAllowMissingSibling(bool $allowMissingSibling) : CollectionDoc
+    public function setAllowMissingSibling(bool $allowMissingSibling) : self
     {
         $this->allowMissingSibling = $allowMissingSibling;
 

@@ -17,9 +17,9 @@ class StringDoc extends ScalarDoc
     /**
      * @param string $format
      *
-     * @return StringDoc
+     * @return self
      */
-    public function setFormat(string $format) : StringDoc
+    public function setFormat(string $format) : self
     {
         $this->format = $format;
 
@@ -29,9 +29,9 @@ class StringDoc extends ScalarDoc
     /**
      * @param int $minLength
      *
-     * @return StringDoc
+     * @return self
      */
-    public function setMinLength(int $minLength) : StringDoc
+    public function setMinLength(int $minLength) : self
     {
         $this->minLength = $minLength;
 
@@ -41,9 +41,9 @@ class StringDoc extends ScalarDoc
     /**
      * @param int $maxLength
      *
-     * @return StringDoc
+     * @return self
      */
-    public function setMaxLength(int $maxLength) : StringDoc
+    public function setMaxLength(int $maxLength) : self
     {
         $this->maxLength = $maxLength;
 
