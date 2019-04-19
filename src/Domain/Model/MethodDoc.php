@@ -38,9 +38,9 @@ class MethodDoc
     /**
      * @param string $identifier
      *
-     * @return MethodDoc
+     * @return self
      */
-    public function setIdentifier(string $identifier) : MethodDoc
+    public function setIdentifier(string $identifier) : self
     {
         // Sanitize Identifier => remove space and slashes
         $this->identifier = strtr(
@@ -57,9 +57,9 @@ class MethodDoc
     /**
      * @param TypeDoc $paramsDoc
      *
-     * @return MethodDoc
+     * @return self
      */
-    public function setParamsDoc(TypeDoc $paramsDoc) : MethodDoc
+    public function setParamsDoc(TypeDoc $paramsDoc) : self
     {
         $this->paramsDoc = $paramsDoc;
         $this->paramsDoc->setRequired();
@@ -70,9 +70,9 @@ class MethodDoc
     /**
      * @param TypeDoc $resultDoc
      *
-     * @return MethodDoc
+     * @return self
      */
-    public function setResultDoc(TypeDoc $resultDoc) : MethodDoc
+    public function setResultDoc(TypeDoc $resultDoc) : self
     {
         $this->resultDoc = $resultDoc;
 
@@ -82,9 +82,9 @@ class MethodDoc
     /**
      * @param string $description
      *
-     * @return MethodDoc
+     * @return self
      */
-    public function setDescription(string $description) : MethodDoc
+    public function setDescription(string $description) : self
     {
         $this->description = $description;
 
@@ -94,9 +94,9 @@ class MethodDoc
     /**
      * @param string $tag
      *
-     * @return MethodDoc
+     * @return self
      */
-    public function addTag(string $tag) : MethodDoc
+    public function addTag(string $tag) : self
     {
         $this->tagList[] = $tag;
 
@@ -106,9 +106,9 @@ class MethodDoc
     /**
      * @param ErrorDoc $customError
      *
-     * @return MethodDoc
+     * @return self
      */
-    public function addCustomError(ErrorDoc $customError) : MethodDoc
+    public function addCustomError(ErrorDoc $customError) : self
     {
         $this->customErrorList[] = $customError;
 
@@ -118,9 +118,9 @@ class MethodDoc
     /**
      * @param string $errorIdentifier
      *
-     * @return MethodDoc
+     * @return self
      */
-    public function addGlobalErrorRef(string $errorIdentifier) : MethodDoc
+    public function addGlobalErrorRef(string $errorIdentifier) : self
     {
         $this->globalErrorRefList[] = $errorIdentifier;
 

@@ -44,9 +44,9 @@ class ErrorDoc
     /**
      * @param string $message
      *
-     * @return ErrorDoc
+     * @return self
      */
-    public function setMessage(string $message): ErrorDoc
+    public function setMessage(string $message): self
     {
         $this->message = $message;
 
@@ -56,9 +56,9 @@ class ErrorDoc
     /**
      * @param string $identifier
      *
-     * @return ErrorDoc
+     * @return self
      */
-    public function setIdentifier(string $identifier) : ErrorDoc
+    public function setIdentifier(string $identifier) : self
     {
         // Sanitize Identifier => remove space and slashes
         $this->identifier = strtr(
@@ -75,9 +75,9 @@ class ErrorDoc
     /**
      * @param TypeDoc $dataDoc
      *
-     * @return ErrorDoc
+     * @return self
      */
-    public function setDataDoc(TypeDoc $dataDoc) : ErrorDoc
+    public function setDataDoc(TypeDoc $dataDoc) : self
     {
         $this->dataDoc = $dataDoc;
 

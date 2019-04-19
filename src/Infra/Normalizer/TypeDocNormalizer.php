@@ -170,7 +170,7 @@ class TypeDocNormalizer
      *
      * @return array
      */
-    private function appendNumberMinMax(NumberDoc $docObject)
+    private function appendNumberMinMax(NumberDoc $docObject) : array
     {
         $docArray = [];
         if (null !== $docObject->getMin()) {

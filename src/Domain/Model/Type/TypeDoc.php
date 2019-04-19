@@ -27,9 +27,9 @@ class TypeDoc
     /**
      * @param string|int $name
      *
-     * @return TypeDoc
+     * @return self
      */
-    public function setName($name) : TypeDoc
+    public function setName($name) : self
     {
         if (null === $name || (!is_string($name) && !is_int($name))) {
             throw new \InvalidArgumentException('name must be either an integer or a string.');
@@ -43,9 +43,9 @@ class TypeDoc
     /**
      * @param string $description
      *
-     * @return TypeDoc
+     * @return self
      */
-    public function setDescription(string $description) : TypeDoc
+    public function setDescription(string $description) : self
     {
         $this->description = $description;
 
@@ -55,9 +55,9 @@ class TypeDoc
     /**
      * @param bool $required
      *
-     * @return TypeDoc
+     * @return self
      */
-    public function setRequired(bool $required = true) : TypeDoc
+    public function setRequired(bool $required = true) : self
     {
         $this->required = $required;
 
@@ -67,9 +67,9 @@ class TypeDoc
     /**
      * @param bool $nullable
      *
-     * @return TypeDoc
+     * @return self
      */
-    public function setNullable(bool $nullable = true) : TypeDoc
+    public function setNullable(bool $nullable = true) : self
     {
         $this->nullable = $nullable;
 
@@ -79,9 +79,9 @@ class TypeDoc
     /**
      * @param mixed|null $default
      *
-     * @return TypeDoc
+     * @return self
      */
-    public function setDefault($default) : TypeDoc
+    public function setDefault($default) : self
     {
         $this->default = $default;
 
@@ -91,9 +91,9 @@ class TypeDoc
     /**
      * @param mixed|null $example
      *
-     * @return TypeDoc
+     * @return self
      */
-    public function setExample($example) : TypeDoc
+    public function setExample($example) : self
     {
         $this->example = $example;
 
@@ -103,9 +103,9 @@ class TypeDoc
     /**
      * @param mixed $allowedValue
      *
-     * @return TypeDoc
+     * @return self
      */
-    public function addAllowedValue($allowedValue) : TypeDoc
+    public function addAllowedValue($allowedValue) : self
     {
         $this->allowedValueList[] = $allowedValue;
 

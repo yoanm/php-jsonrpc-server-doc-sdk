@@ -12,9 +12,9 @@ class ArrayDoc extends CollectionDoc
     /**
      * @param TypeDoc $itemValidation
      *
-     * @return ArrayDoc
+     * @return self
      */
-    public function setItemValidation(TypeDoc $itemValidation) : ArrayDoc
+    public function setItemValidation(TypeDoc $itemValidation) : self
     {
         $this->itemValidation = $itemValidation;
 

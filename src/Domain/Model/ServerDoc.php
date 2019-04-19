@@ -22,9 +22,9 @@ class ServerDoc
     /**
      * @param string $name
      *
-     * @return ServerDoc
+     * @return self
      */
-    public function setName(string $name) : ServerDoc
+    public function setName(string $name) : self
     {
         $this->name = $name;
 
@@ -34,9 +34,9 @@ class ServerDoc
     /**
      * @param string $version
      *
-     * @return ServerDoc
+     * @return self
      */
-    public function setVersion(string $version) : ServerDoc
+    public function setVersion(string $version) : self
     {
         $this->version = $version;
 
@@ -46,9 +46,9 @@ class ServerDoc
     /**
      * @param MethodDoc $method
      *
-     * @return ServerDoc
+     * @return self
      */
-    public function addMethod(MethodDoc $method) : ServerDoc
+    public function addMethod(MethodDoc $method) : self
     {
         $this->methodList[] = $method;
 
@@ -58,9 +58,9 @@ class ServerDoc
     /**
      * @param TagDoc $tag
      *
-     * @return ServerDoc
+     * @return self
      */
-    public function addTag(TagDoc $tag) : ServerDoc
+    public function addTag(TagDoc $tag) : self
     {
         $this->tagList[] = $tag;
 
@@ -70,9 +70,9 @@ class ServerDoc
     /**
      * @param ErrorDoc $error
      *
-     * @return ServerDoc
+     * @return self
      */
-    public function addServerError(ErrorDoc $error) : ServerDoc
+    public function addServerError(ErrorDoc $error) : self
     {
         $this->serverErrorList[] = $error;
 
@@ -82,9 +82,9 @@ class ServerDoc
     /**
      * @param ErrorDoc $error
      *
-     * @return ServerDoc
+     * @return self
      */
-    public function addGlobalError(ErrorDoc $error) : ServerDoc
+    public function addGlobalError(ErrorDoc $error) : self
     {
         $this->globalErrorList[] = $error;
 
