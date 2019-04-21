@@ -20,7 +20,7 @@ class ErrorDocNormalizerTest extends TestCase
     /** @var TypeDocNormalizer|ObjectProphecy */
     private $typeDocNormalizer;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->typeDocNormalizer = $this->prophesize(TypeDocNormalizer::class);
 

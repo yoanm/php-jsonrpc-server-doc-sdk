@@ -27,7 +27,7 @@ class ServerDocNormalizerTest extends TestCase
     /** @var ErrorDocNormalizer|ObjectProphecy */
     private $errorDocNormalizer;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->methodDocNormalizer = $this->prophesize(MethodDocNormalizer::class);
         $this->tagDocNormalizer = $this->prophesize(TagDocNormalizer::class);

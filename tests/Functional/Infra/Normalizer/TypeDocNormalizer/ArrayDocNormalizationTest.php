@@ -17,7 +17,7 @@ class ArrayDocNormalizationTest extends TestCase
     /** @var TypeDocNormalizer */
     private $normalizer;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->normalizer = new TypeDocNormalizer();
     }
