@@ -19,7 +19,7 @@ class HttpServerDocNormalizerTest extends TestCase
     /** @var ServerDocNormalizer|ObjectProphecy */
     private $serverDocNormalizer;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->serverDocNormalizer = $this->prophesize(ServerDocNormalizer::class);
 
