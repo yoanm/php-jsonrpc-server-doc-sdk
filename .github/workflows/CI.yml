@@ -69,13 +69,13 @@ jobs:
           fail_ci_if_error: true
 
       - name: Upload coverage to scrutinizer (PR)
-        if: github.event == 'pull_request'
+        if: github.event_name == 'pull_request'
         run: |
           echo "Parent ${{ github.base_ref }}=>$(git rev-parse ${{ github.base_ref }})"
           php vendor/bin/ocular code-coverage:upload --format=php-clover build/coverage/clover.xml --parent=$(git rev-parse ${{ github.base_ref }})
 
       - name: Upload coverage to scrutinizer (Push)
-        if: github.event == 'push'
+        if: github.event_name != 'pull_request'
         run: php vendor/bin/ocular code-coverage:upload --format=php-clover build/coverage/clover.xml
 
   functional-tests:
@@ -126,12 +126,12 @@ jobs:
           flags: "functional-tests,php-${{ matrix.php-version }}"
           fail_ci_if_error: true
 
-      - name: Upload coverage to scrutinizer (PR) (${{ github.event }})
-        if: ${{ github.event == 'pull_request' }}
+      - name: Upload coverage to scrutinizer (PR)
+        if: github.event_name == 'pull_request'
         run: |
           echo "Parent ${{ github.base_ref }}=>$(git rev-parse ${{ github.base_ref }})"
           php vendor/bin/ocular code-coverage:upload --format=php-clover build/coverage/clover.xml --parent=$(git rev-parse ${{ github.base_ref }})
 
       - name: Upload coverage to scrutinizer (Push)
-        if: github.event == 'push'
+        if: github.event_name != 'pull_request'
         run: php vendor/bin/ocular code-coverage:upload --format=php-clover build/coverage/clover.xml
