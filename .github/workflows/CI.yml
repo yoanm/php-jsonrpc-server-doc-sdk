@@ -1,0 +1,62 @@
+name: 'CI'
+on: # rebuild any PRs and main branch changes
+  pull_request:
+    types:
+      - opened
+      - synchronize
+  push:
+    branches: [ master ]
+
+concurrency:
+  group: "CI-${{ github.head_ref }}"
+  cancel-in-progress: true
+
+env:
+  CI: 'true'
+  TEST_OUTPUT_STYLE: 'pretty'
+  PHPCS_REPORT_STYLE: 'full'
+  COMPOSER_OPTIONS: '--optimize-autoloader'
+
+jobs:
+  ci-tests:
+    name: "CI tests"
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        php_version:
+          - '7.4'
+          - '8.0'
+          - '8.1'
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '${{ matrix.php_version }}'
+          tools: composer
+          # Remove xdebug to speed up the build
+          coverage: none
+        env:
+          # Always use latest available patch for the version
+          update: true
+
+      - name: Setup cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.composer
+            ./vendor
+          # Clear the cache if composer lock has been updated
+          key: ${{ runner.os }}-${{ hashFiles('composer.lock') }}
+
+      - name: Build
+        run: make build
+
+      - name: Technical tests
+        run: make test-technical
+
+      - name: Functional tests
+        run: make test-functional
