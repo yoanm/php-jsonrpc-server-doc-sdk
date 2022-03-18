@@ -60,10 +60,6 @@ jobs:
       - name: Test
         run: make test-unit
 
-      - name: Code style
-        if: matrix.php-version == '7.4'
-        run: make codestyle
-
       # See the reports at https://codecov.io/gh/yoanm/php-jsonrpc-doc-sdk
       - name: Upload coverage to codecov
         uses: codecov/codecov-action@v2
