@@ -25,5 +25,6 @@ coverage-html:
 coverage-clover:
   extensions:
     DVDoug\Behat\CodeCoverage\Extension:
+      reports:
         clover:
           target: build/coverage-behat/clover.xml  # no default value, you must specify
