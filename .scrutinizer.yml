@@ -8,23 +8,20 @@ build_failure_conditions:
     - 'patches.label("Spacing").exists'            # No spacing patches allowed
     - 'patches.label("Bug").exists'                # No bug patches allowed
     - 'issues.label("coding-style").exists'        # No coding style issues allowed
+
+tools:
+  external_code_coverage:
+    runs: 6 # Wait 6 coverage submission (3 units and 3 functional)
+    timeout: 180    # Timeout in seconds
+
 build:
     nodes:
-        analysis-and-coverage:
+        analysis:
             dependencies:
                 override:
                     - make build
             tests:
                 stop_on_failure: true
-                override:
-                    -
-                        command: make coverage
-                        idle_timeout: 1200
-                        coverage:
-                            file: 'build/coverage/clover.xml'
-                            format: 'php-clover'
-                    - php-scrutinizer-run --enable-security-analysis
-                    - make codestyle
     cache:
         directories:
             - ~/.composer
