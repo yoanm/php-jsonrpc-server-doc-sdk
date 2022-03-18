@@ -34,6 +34,8 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 100 # Fetch last 100 commits (will be used by occular to retrieve parent commit)
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -68,14 +70,7 @@ jobs:
           flags: "unit-tests,php-${{ matrix.php-version }}"
           fail_ci_if_error: true
 
-      - name: Upload coverage to scrutinizer (PR)
-        if: github.event_name == 'pull_request'
-        run: |
-          echo "Parent ${{ github.base_ref }}=>$(git rev-parse ${{ github.base_ref }})"
-          php vendor/bin/ocular code-coverage:upload --format=php-clover build/coverage/clover.xml --parent=$(git rev-parse ${{ github.base_ref }})
-
-      - name: Upload coverage to scrutinizer (Push)
-        if: github.event_name != 'pull_request'
+      - name: Upload coverage to scrutinizer
         run: php vendor/bin/ocular code-coverage:upload --format=php-clover build/coverage/clover.xml
 
   functional-tests:
@@ -126,12 +121,5 @@ jobs:
           flags: "functional-tests,php-${{ matrix.php-version }}"
           fail_ci_if_error: true
 
-      - name: Upload coverage to scrutinizer (PR)
-        if: github.event_name == 'pull_request'
-        run: |
-          echo "Parent ${{ github.base_ref }}=>$(git rev-parse ${{ github.base_ref }})"
-          php vendor/bin/ocular code-coverage:upload --format=php-clover build/coverage/clover.xml --parent=$(git rev-parse ${{ github.base_ref }})
-
-      - name: Upload coverage to scrutinizer (Push)
-        if: github.event_name != 'pull_request'
+      - name: Upload coverage to scrutinizer
         run: php vendor/bin/ocular code-coverage:upload --format=php-clover build/coverage/clover.xml
