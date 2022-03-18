@@ -19,7 +19,7 @@ env:
 
 jobs:
   ci-tests:
-    name: "CI tests"
+    name: PHP ${{ matrix.php_version }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: true

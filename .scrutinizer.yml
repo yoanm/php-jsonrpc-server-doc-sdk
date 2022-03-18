@@ -9,6 +9,7 @@ build_failure_conditions:
     - 'patches.label("Bug").exists'                # No bug patches allowed
     - 'issues.label("coding-style").exists'        # No coding style issues allowed
 build:
+    image: default-bionic
     dependencies:
         override:
             - make build
