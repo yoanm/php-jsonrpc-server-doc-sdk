@@ -22,6 +22,8 @@ build:
                     - make build
             tests:
                 stop_on_failure: true
+                override:
+                    - php-scrutinizer-run --enable-security-analysis
     cache:
         directories:
             - ~/.composer

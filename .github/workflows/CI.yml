@@ -61,7 +61,7 @@ jobs:
 
       - name: Install scrutinizer client
         if: ${{ steps.scrutinizer-cache.outpus.cache-hit == false }}
-        run: wget https://scrutinizer-ci.com/ocular.phar -o ~/ocular.phar
+        run: wget https://scrutinizer-ci.com/ocular.phar -O ~/ocular.phar
 
       - name: Build
         run: make build
@@ -127,7 +127,7 @@ jobs:
 
       - name: Install scrutinizer client
         if: ${{ steps.scrutinizer-cache.outpus.cache-hit == false }}
-        run: wget https://scrutinizer-ci.com/ocular.phar -o ~/ocular.phar
+        run: wget https://scrutinizer-ci.com/ocular.phar -O ~/ocular.phar
 
       - name: Build
         run: make build
