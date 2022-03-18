@@ -33,7 +33,7 @@
     "yoanm/symfony-jsonrpc-http-server": "Symfony Bundle to convert an HTTP json-rpc request into HTTP json-rpc response"
   },
   "require": {
-    "php": ">=7.1"
+    "php": "^7.4 || ^8.0 || ^8.1"
   },
   "require-dev": {
     "ext-json": "*",

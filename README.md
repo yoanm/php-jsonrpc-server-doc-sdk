@@ -7,6 +7,7 @@
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/yoanm/php-jsonrpc-server-doc-sdk/master.svg?logo=scrutinizer)](https://scrutinizer-ci.com/g/yoanm/php-jsonrpc-server-doc-sdk/?branch=master)
 [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/yoanm/php-jsonrpc-server-doc-sdk/master.svg?logo=scrutinizer)](https://scrutinizer-ci.com/g/yoanm/php-jsonrpc-server-doc-sdk/?branch=master)
 
+[![CI](https://github.com/yoanm/php-jsonrpc-server-doc-sdk/actions/workflows/CI.yml/badge.svg?branch=master)](https://github.com/yoanm/php-jsonrpc-server-doc-sdk/actions/workflows/CI.yml)
 
 [![Latest Stable Version](https://img.shields.io/packagist/v/yoanm/jsonrpc-server-doc-sdk.svg)](https://packagist.org/packages/yoanm/jsonrpc-server-doc-sdk)
 [![Packagist PHP version](https://img.shields.io/packagist/php-v/yoanm/jsonrpc-server-doc-sdk.svg)](https://packagist.org/packages/yoanm/jsonrpc-server-doc-sdk)
