@@ -71,7 +71,7 @@ jobs:
           fail_ci_if_error: true
 
       - name: Upload coverage to scrutinizer
-        run: php vendor/bin/ocular code-coverage:upload --format=php-clover build/coverage/clover.xml
+        run: php vendor/bin/ocular code-coverage:upload --format=php-clover -vvv build/coverage/clover.xml
 
   functional-tests:
     name: Functional / PHP ${{ matrix.php-version }}
@@ -122,4 +122,4 @@ jobs:
           fail_ci_if_error: true
 
       - name: Upload coverage to scrutinizer
-        run: php vendor/bin/ocular code-coverage:upload --format=php-clover build/coverage/clover.xml
+        run: php vendor/bin/ocular code-coverage:upload --format=php-clover -vvv build/coverage/clover.xml
