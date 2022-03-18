@@ -80,6 +80,7 @@ test-quick: test-functional test-unit
 
 ifdef PHPUNIT_COVERAGE_OPTION
 test-unit: create-build-directories
+endif
 test-unit:
 	./vendor/bin/phpunit ${PHPUNIT_COLOR_OPTION} ${PHPUNIT_OUTPUT_STYLE_OPTION} ${PHPUNIT_COVERAGE_OPTION} --testsuite technical
 
