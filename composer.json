@@ -41,6 +41,7 @@
     "squizlabs/php_codesniffer": "3.*",
     "phpunit/phpunit": "^9.0",
     "yoanm/php-unit-extended": "~1.0",
-    "phpspec/prophecy-phpunit": "^2.0"
+    "phpspec/prophecy-phpunit": "^2.0",
+    "dvdoug/behat-code-coverage": "^5.2"
   }
 }

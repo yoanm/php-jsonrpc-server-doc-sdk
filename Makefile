@@ -91,9 +91,6 @@ test-functional: create-build-directories
 endif
 test-functional:
 	./vendor/bin/phpunit ${PHPUNIT_COLOR_OPTION} ${PHPUNIT_OUTPUT_STYLE_OPTION} ${PHPUNIT_COVERAGE_OPTION} --testsuite functional
-ifdef BEHAT_COVERAGE_OPTION
-	composer require --dev dvdoug/behat-code-coverage
-endif
 	./vendor/bin/behat ${BEHAT_COLOR_OPTION} ${BEHAT_OUTPUT_STYLE_OPTION} ${BEHAT_COVERAGE_OPTION} --no-snippets
 
 codestyle: create-build-directories

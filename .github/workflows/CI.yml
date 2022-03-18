@@ -13,6 +13,7 @@ concurrency:
 
 env:
   CI: 'true'
+  COVERAGE_OUTPUT_STYLE: clover
   TEST_OUTPUT_STYLE: 'pretty'
   PHPCS_REPORT_STYLE: 'full'
   COMPOSER_OPTIONS: '--optimize-autoloader'
@@ -71,6 +72,7 @@ jobs:
 
   functional-tests:
     name: Functional / PHP ${{ matrix.php_version }}
+    needs: [unit-tests]
     runs-on: ubuntu-latest
     strategy:
       fail-fast: true
