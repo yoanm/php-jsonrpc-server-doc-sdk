@@ -23,6 +23,7 @@ build:
             tests:
                 stop_on_failure: true
                 override:
+                    - make codestyle
                     - php-scrutinizer-run --enable-security-analysis
     cache:
         directories:

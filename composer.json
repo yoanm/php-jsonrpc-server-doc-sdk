@@ -42,6 +42,7 @@
     "phpunit/phpunit": "^9.0",
     "yoanm/php-unit-extended": "~1.0",
     "phpspec/prophecy-phpunit": "^2.0",
-    "dvdoug/behat-code-coverage": "^5.2"
+    "dvdoug/behat-code-coverage": "^5.2",
+    "scrutinizer/ocular": "1.5.2"
   }
 }
