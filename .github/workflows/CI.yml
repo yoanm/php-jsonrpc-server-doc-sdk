@@ -54,7 +54,6 @@ jobs:
           path: |
             ~/.composer
             ./vendor
-            ~/ocular.phar
           # Clear the cache if composer json (as composer.lock is in the repo) has been updated
           key: ${{ env.CACHE_VERSION }}-tests-${{ matrix.php-version }}-${{ hashFiles('composer.json') }}
 
@@ -72,12 +71,8 @@ jobs:
           flags: "unit-tests,php-${{ matrix.php-version }}"
           fail_ci_if_error: true
 
-      - name: Install scrutinizer client
-        if: steps.cache.outpus.cache-hit == false
-        run: wget https://github.com/scrutinizer-ci/ocular/releases/download/1.6.0/ocular.phar -o ~/ocular.phar
-
       - name: Upload coverage to scrutinizer
-        run: php ocular.phar code-coverage:upload --format=php-clover build/coverage/clover.xml
+        run: php vendor/bin/ocular code-coverage:upload --format=php-clover build/coverage/clover.xml
 
   functional-tests:
     name: Functional / PHP ${{ matrix.php-version }}
@@ -111,7 +106,6 @@ jobs:
           path: |
             ~/.composer
             ./vendor
-            ~/ocular.phar
           # Clear the cache if composer json (as composer.lock is in the repo) has been updated
           key: ${{ env.CACHE_VERSION }}-tests-${{ matrix.php-version }}-${{ hashFiles('composer.json') }}
 
@@ -129,9 +123,5 @@ jobs:
           flags: "functional-tests,php-${{ matrix.php-version }}"
           fail_ci_if_error: true
 
-      - name: Install scrutinizer client
-        if: steps.cache.outpus.cache-hit == false
-        run: wget https://github.com/scrutinizer-ci/ocular/releases/download/1.9/ocular.phar -o ~/ocular.phar
-
       - name: Upload coverage to scrutinizer
-        run: php ocular.phar code-coverage:upload --format=php-clover build/coverage/clover.xml
+        run: php vendor/bin/ocular code-coverage:upload --format=php-clover build/coverage/clover.xml
