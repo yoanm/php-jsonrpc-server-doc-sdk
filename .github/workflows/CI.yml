@@ -13,7 +13,7 @@ concurrency:
 
 env:
   # Cache params
-  CACHE_VERSION: 2022031802 # To be able to create a new cache (YYYYMMDDXX)
+  CACHE_VERSION: 2022031803 # To be able to create a new cache (YYYYMMDDXX)
   CI: 'true'
   COVERAGE_OUTPUT_STYLE: clover
   TEST_OUTPUT_STYLE: 'pretty'
