@@ -34,8 +34,6 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 100 # Fetch last 100 commits (will be used by occular to retrieve parent commit)
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
