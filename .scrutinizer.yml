@@ -8,6 +8,7 @@ build_failure_conditions:
     - 'patches.label("Spacing").exists'            # No spacing patches allowed
     - 'patches.label("Bug").exists'                # No bug patches allowed
     - 'issues.label("coding-style").exists'        # No coding style issues allowed
+
 build:
     dependencies:
         override:
@@ -15,14 +16,18 @@ build:
     tests:
         stop_on_failure: true
         override:
-            -
-                command: make coverage
-                idle_timeout: 1200
-                coverage:
-                    file: 'build/coverage/clover.xml'
-                    format: 'php-clover'
-            - php-scrutinizer-run --enable-security-analysis
             - make codestyle
+            - command: make scrutinizer-phpunit
+              idle_timeout: 1200
+              coverage:
+                file: 'build/coverage/clover.xml'
+                format: 'php-clover'
+            - command: make scrutinizer-behat
+              idle_timeout: 1200
+              coverage:
+                file: 'build/coverage-behat/clover.xml'
+                format: 'php-clover'
+            - php-scrutinizer-run --enable-security-analysis
     cache:
         directories:
             - ~/.composer
@@ -37,7 +42,9 @@ build:
             COVERAGE_CLOVER_FILE_PATH: 'build/coverage/clover.xml'
             PHPCS_DISABLE_WARNING: "true"
         php:
-            version: "7.1"
+            version: "7.4.28"
+            ini:
+              memory_limit: "-1"
         timezone: UTC
         postgresql: false
         redis: false

@@ -2,6 +2,7 @@
 namespace Tests\Functional\Infra\Normalizer;
 
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Yoanm\JsonRpcServerDoc\Domain\Model\ErrorDoc;
 use Yoanm\JsonRpcServerDoc\Domain\Model\Type\StringDoc;
@@ -15,6 +16,8 @@ use Yoanm\JsonRpcServerDoc\Infra\Normalizer\TypeDocNormalizer;
  */
 class ErrorDocNormalizerTest extends TestCase
 {
+    use ProphecyTrait;
+
     /** @var ErrorDocNormalizer */
     private $normalizer;
     /** @var TypeDocNormalizer|ObjectProphecy */

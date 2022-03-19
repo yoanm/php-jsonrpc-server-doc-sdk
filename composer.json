@@ -33,13 +33,15 @@
     "yoanm/symfony-jsonrpc-http-server": "Symfony Bundle to convert an HTTP json-rpc request into HTTP json-rpc response"
   },
   "require": {
-    "php": ">=7.1"
+    "php": "^7.4 || ^8.0 || ^8.1"
   },
   "require-dev": {
     "ext-json": "*",
     "behat/behat": "~3.0",
     "squizlabs/php_codesniffer": "3.*",
-    "phpunit/phpunit": "^7.0 || ^8.0",
-    "yoanm/php-unit-extended": "~1.0"
+    "phpunit/phpunit": "^9.0",
+    "yoanm/php-unit-extended": "~1.0",
+    "phpspec/prophecy-phpunit": "^2.0",
+    "dvdoug/behat-code-coverage": "^5.2"
   }
 }
