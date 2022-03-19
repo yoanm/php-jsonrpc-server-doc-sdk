@@ -74,9 +74,7 @@ install:
 configure:
 
 # Project tests
-test: test-quick codestyle
-
-test-quick: test-functional test-unit
+test: test-functional test-unit codestyle
 
 ifdef PHPUNIT_COVERAGE_OPTION
 test-unit: create-build-directories
@@ -96,10 +94,16 @@ test-functional:
 codestyle: create-build-directories
 	./vendor/bin/phpcs ${PHPCS_DISABLE_WARNING_OPTION} --standard=phpcs.xml.dist ${PHPCS_COLOR_OPTION} ${PHPCS_REPORT_FILE_OPTION} --report=${PHPCS_REPORT_STYLE}
 
+scrutinizer-phpunit:
+	./vendor/bin/phpunit ${PHPUNIT_COLOR_OPTION} ${PHPUNIT_OUTPUT_STYLE_OPTION} ${PHPUNIT_COVERAGE_OPTION}
+
+scrutinizer-behat:
+	./vendor/bin/behat ${BEHAT_COLOR_OPTION} ${BEHAT_OUTPUT_STYLE_OPTION} ${BEHAT_COVERAGE_OPTION} --no-snippets
+
 
 # Internal commands
 create-build-directories:
 	mkdir -p ${COVERAGE_DIRECTORY} ${BEHAT_COVERAGE_DIRECTORY} ${REPORTS_DIRECTORY} ${REPORTS_DIRECTORY}
 
-.PHONY: build install configure test test-technical test-functional codestyle create-build-directories
+.PHONY: build install configure test test-unit test-functional codestyle create-build-directories scrutinizer-behat scrutinizer-phpunit
 .DEFAULT: build

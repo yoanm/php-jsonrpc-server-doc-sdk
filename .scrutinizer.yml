@@ -9,11 +9,6 @@ build_failure_conditions:
     - 'patches.label("Bug").exists'                # No bug patches allowed
     - 'issues.label("coding-style").exists'        # No coding style issues allowed
 
-tools:
-  external_code_coverage:
-    runs: 6 # Wait 6 coverage submission (3 units and 3 functional)
-    timeout: 180    # Timeout in seconds
-
 build:
     nodes:
         analysis:
@@ -24,6 +19,16 @@ build:
                 stop_on_failure: true
                 override:
                     - make codestyle
+                    - command: make scrutinizer-phpunit
+                      idle_timeout: 1200
+                      coverage:
+                        file: 'build/coverage/clover.xml'
+                        format: 'php-clover'
+                    - command: make scrutinizer-behat
+                      idle_timeout: 1200
+                      coverage:
+                        file: 'build/coverage-behat/clover.xml'
+                        format: 'php-clover'
                     - php-scrutinizer-run --enable-security-analysis
     cache:
         directories:
