@@ -45,6 +45,8 @@ build:
             PHPCS_DISABLE_WARNING: "true"
         php:
             version: "7.4.28"
+            ini:
+              memory_limit: "-1"
         timezone: UTC
         postgresql: false
         redis: false
