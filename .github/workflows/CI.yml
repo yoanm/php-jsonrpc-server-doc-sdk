@@ -74,7 +74,7 @@ jobs:
 
       - name: Install scrutinizer client
         if: steps.cache.outpus.cache-hit == false
-        run: wget https://scrutinizer-ci.com/ocular.phar -o ~/ocular.phar
+        run: wget https://github.com/scrutinizer-ci/ocular/releases/download/1.6.0/ocular.phar -o ~/ocular.phar
 
       - name: Upload coverage to scrutinizer
         run: php ocular.phar code-coverage:upload --format=php-clover build/coverage/clover.xml
@@ -131,7 +131,7 @@ jobs:
 
       - name: Install scrutinizer client
         if: steps.cache.outpus.cache-hit == false
-        run: wget https://scrutinizer-ci.com/ocular.phar -o ~/ocular.phar
+        run: wget https://github.com/scrutinizer-ci/ocular/releases/download/1.9/ocular.phar -o ~/ocular.phar
 
       - name: Upload coverage to scrutinizer
         run: php ocular.phar code-coverage:upload --format=php-clover build/coverage/clover.xml
