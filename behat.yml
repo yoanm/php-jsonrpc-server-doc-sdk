@@ -9,7 +9,8 @@ default:
   suites:
     default:
       contexts:
-        - Tests\Functional\BehatContext\DocNormalizerContext: ~
+        - Tests\Functional\BehatContext\StandaloneContext: ~
+        - Tests\Functional\BehatContext\FeatureContext: ~
 coverage:
   extensions:
     DVDoug\Behat\CodeCoverage\Extension:
@@ -27,4 +28,4 @@ coverage-clover:
     DVDoug\Behat\CodeCoverage\Extension:
       reports:
         clover:
-          target: build/coverage-behat/clover.xml  # no default value, you must specify
+          target: build/coverage-behat/clover.xml
