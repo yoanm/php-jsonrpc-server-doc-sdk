@@ -9,8 +9,7 @@ default:
   suites:
     default:
       contexts:
-        - Tests\Functional\BehatContext\StandaloneContext: ~
-        - Tests\Functional\BehatContext\FeatureContext: ~
+        - Tests\Functional\BehatContext\DocNormalizerContext: ~
 coverage:
   extensions:
     DVDoug\Behat\CodeCoverage\Extension:
