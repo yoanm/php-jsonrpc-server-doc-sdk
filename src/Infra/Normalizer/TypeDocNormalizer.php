@@ -25,11 +25,13 @@ class TypeDocNormalizer
         $docArray = [];
 
         $docArray = $this->appendIfNotNull($docArray, 'description', $docObject->getDescription());
+        $docArray = $this->appendIfNotNull($docArray, 'type', $this->normalizeSchemaType($docObject));
 
         return $docArray
-            + ((($type = $this->normalizeSchemaType($docObject)) !== null) ? ['type' => $type] : [])
-            + ['nullable' => $docObject->isNullable()]
-            + ['required' => $docObject->isRequired()]
+            + [
+                'nullable' => $docObject->isNullable(),
+                'required' => $docObject->isRequired(),
+            ]
             + $this->appendMisc($docObject)
             + $this->appendDocEnum($docObject)
             + $this->appendMinMax($docObject)
