@@ -6,7 +6,6 @@ Feature: TypeDocNormalizer
     Then I should have following normalized type:
     """
     {
-      "type": "string",
       "nullable": true,
       "required": false
     }

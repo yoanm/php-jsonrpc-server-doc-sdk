@@ -27,7 +27,7 @@ class TypeDocNormalizer
         $docArray = $this->appendIfNotNull($docArray, 'description', $docObject->getDescription());
 
         return $docArray
-            + ['type' => $this->normalizeSchemaType($docObject)]
+            + ((($type = $this->normalizeSchemaType($docObject)) !== null) ? ['type' => $type] : [])
             + ['nullable' => $docObject->isNullable()]
             + ['required' => $docObject->isRequired()]
             + $this->appendMisc($docObject)
@@ -44,11 +44,11 @@ class TypeDocNormalizer
      *
      * @throws \ReflectionException
      */
-    protected function normalizeSchemaType(TypeDoc $docObject) : string
+    protected function normalizeSchemaType(TypeDoc $docObject) : ?string
     {
         $type = str_replace('Doc', '', lcfirst((new \ReflectionClass($docObject))->getShortName()));
 
-        return ('type' === $type) ? 'string' : $type;
+        return ('type' === $type) ? null : $type;
     }
 
     /**
