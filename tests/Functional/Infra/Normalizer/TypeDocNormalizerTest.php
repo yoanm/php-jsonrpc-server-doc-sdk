@@ -37,7 +37,6 @@ class TypeDocNormalizerTest extends TestCase
             'basic doc' => [
                 'doc' => new TypeDoc(),
                 'expected' => [
-                    'type' => 'string',
                     'nullable' => true,
                     'required' => false,
                 ],
@@ -52,7 +51,6 @@ class TypeDocNormalizerTest extends TestCase
                 ,
                 'expected' => [
                     'description' => 'my-description',
-                    'type' => 'string',
                     'nullable' => false,
                     'required' => true,
                     'default' => true,

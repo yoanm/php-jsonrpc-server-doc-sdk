@@ -19,7 +19,6 @@ Feature: TypeDocNormalizer
     """
     {
       "description": "my-type-description",
-      "type": "string",
       "nullable": false,
       "required": true,
       "default": "my-type-default",
