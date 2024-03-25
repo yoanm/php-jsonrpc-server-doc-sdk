@@ -100,6 +100,14 @@ jobs:
             php-${{ matrix.php-version }}
           path: build/coverage-groups
 
+      - name: Upload coverage reports
+        if: ${{ env.COVERAGE_TYPE == 'xdebug' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-groups-php${{ matrix.php-version }}
+          path: build/coverage-groups
+          if-no-files-found: error
+
   static-checks:
     name: Static checks
     runs-on: ubuntu-latest
