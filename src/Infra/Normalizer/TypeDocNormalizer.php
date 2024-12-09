@@ -22,12 +22,8 @@ class TypeDocNormalizer
      */
     public function normalize(TypeDoc $docObject) : array
     {
-        $docArray = [];
-
-        $docArray = $this->appendIfNotNull($docArray, 'description', $docObject->getDescription());
-        $docArray = $this->appendIfNotNull($docArray, 'type', $this->normalizeSchemaType($docObject));
-
-        return $docArray
+        return $this->appendIfNotNull('description', $docObject->getDescription())
+            + $this->appendIfNotNull('type', $this->normalizeSchemaType($docObject))
             + [
                 'nullable' => $docObject->isNullable(),
                 'required' => $docObject->isRequired(),
@@ -62,13 +58,13 @@ class TypeDocNormalizer
     {
         $docArray = [];
         if ($docObject instanceof StringDoc) {
-            $docArray = $this->appendIfNotNull($docArray, 'minLength', $docObject->getMinLength());
-            $docArray = $this->appendIfNotNull($docArray, 'maxLength', $docObject->getMaxLength());
+            $docArray += $this->appendIfNotNull('minLength', $docObject->getMinLength());
+            $docArray += $this->appendIfNotNull('maxLength', $docObject->getMaxLength());
         } elseif ($docObject instanceof CollectionDoc) {
-            $docArray = $this->appendIfNotNull($docArray, 'minItem', $docObject->getMinItem());
-            $docArray = $this->appendIfNotNull($docArray, 'maxItem', $docObject->getMaxItem());
+            $docArray += $this->appendIfNotNull('minItem', $docObject->getMinItem());
+            $docArray += $this->appendIfNotNull('maxItem', $docObject->getMaxItem());
         } elseif ($docObject instanceof NumberDoc) {
-            return $this->appendNumberMinMax($docObject);
+            $docArray = $this->appendNumberMinMax($docObject);
         }
 
         return $docArray;
@@ -109,12 +105,11 @@ class TypeDocNormalizer
      */
     protected function appendMisc(TypeDoc $docObject) : array
     {
-        $docArray = [];
-        $docArray = $this->appendIfNotNull($docArray, 'default', $docObject->getDefault());
-        $docArray = $this->appendIfNotNull($docArray, 'example', $docObject->getExample());
+        $docArray = $this->appendIfNotNull('default', $docObject->getDefault());
+        $docArray += $this->appendIfNotNull('example', $docObject->getExample());
 
         if ($docObject instanceof StringDoc) {
-            $docArray = $this->appendIfNotNull($docArray, 'format', $docObject->getFormat());
+            $docArray += $this->appendIfNotNull('format', $docObject->getFormat());
         } elseif ($docObject instanceof ArrayDoc && null !== $docObject->getItemValidation()) {
             $docArray['item_validation'] = $this->normalize($docObject->getItemValidation());
         }
@@ -188,13 +183,13 @@ class TypeDocNormalizer
     }
 
     /**
-     * @param array  $docArray
      * @param string $key
      * @param mixed  $value
+     * @param array  $docArray
      *
      * @return array
      */
-    private function appendIfNotNull(array $docArray, string $key, $value) : array
+    private function appendIfNotNull(string $key, $value, array $docArray = []) : array
     {
         if (null !== $value) {
             $docArray[$key] = $value;
