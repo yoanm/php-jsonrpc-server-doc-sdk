@@ -2,7 +2,8 @@
 
 [![License](https://img.shields.io/github/license/yoanm/php-jsonrpc-server-doc-sdk.svg)](https://github.com/yoanm/php-jsonrpc-server-doc-sdk)
 [![Code size](https://img.shields.io/github/languages/code-size/yoanm/php-jsonrpc-server-doc-sdk.svg)](https://github.com/yoanm/php-jsonrpc-server-doc-sdk)
-[![Dependabot Status](https://api.dependabot.com/badges/status?host=github\&repo=yoanm/php-jsonrpc-server-doc-sdk)](https://dependabot.com)
+![Dependabot Status](https://flat.badgen.net/github/dependabot/yoanm/php-jsonrpc-server-doc-sdk)
+![Last commit](https://badgen.net/github/last-commit/yoanm/php-jsonrpc-server-doc-sdk)
 
 [![Scrutinizer Build Status](https://img.shields.io/scrutinizer/build/g/yoanm/php-jsonrpc-server-doc-sdk.svg?label=Scrutinizer\&logo=scrutinizer)](https://scrutinizer-ci.com/g/yoanm/php-jsonrpc-server-doc-sdk/build-status/master)
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/yoanm/php-jsonrpc-server-doc-sdk/master.svg?logo=scrutinizer)](https://scrutinizer-ci.com/g/yoanm/php-jsonrpc-server-doc-sdk/?branch=master)
